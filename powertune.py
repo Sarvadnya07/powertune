@@ -23,6 +23,9 @@ def main():
     dev_parser = subparsers.add_parser("dev", help="Apply developer profile")
     dev_parser.add_argument("--apply", action="store_true", help="Apply changes (requires admin)")
 
+    history_parser = subparsers.add_parser("history", help="View historical diagnostic events")
+    history_parser.add_argument("--limit", type=int, default=10, help="Number of events to show")
+
     args = parser.parse_args()
     
     console.print("\n[bold cyan]  POWERTUNE - Systems Observability & Power Intelligence[/bold cyan]")
@@ -33,7 +36,32 @@ def main():
     if args.command == "analyze":
         console.print("  [bold cyan][>] Diagnostic Analyzer[/bold cyan]\n")
         data = collect_telemetry(root_dir)
-        generate_recommendations(data)
+        generate_recommendations(data, root_dir)
+        
+    elif args.command == "history":
+        from core.database import TelemetryDB
+        from rich.table import Table
+        db = TelemetryDB(root_dir)
+        events = db.get_recent_events(args.limit)
+        
+        table = Table(title="[bold cyan]Historical Diagnostic Events[/bold cyan]")
+        table.add_column("Timestamp", style="dim")
+        table.add_column("Category")
+        table.add_column("Severity")
+        table.add_column("Source")
+        table.add_column("Message", ratio=1)
+        
+        for e in events:
+            # Color severity
+            sev = e[2].lower()
+            color = "white"
+            if sev == "high": color = "red"
+            elif sev == "medium": color = "yellow"
+            elif sev == "info": color = "green"
+            
+            table.add_row(e[0], e[1], f"[{color}]{e[2].upper()}[/{color}]", e[3], e[4])
+        
+        console.print(table)
         
     elif args.command in ["battery", "gaming", "dev"]:
         profile_map = {"battery": "battery", "gaming": "gaming", "dev": "developer"}

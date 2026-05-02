@@ -29,6 +29,10 @@ def display_analyzer_results(title, results):
     table.add_column("Source")
     table.add_column("Severity")
     table.add_column("Message", ratio=1)
+    table.add_column("Intelligence (Root Cause)", ratio=1, style="italic dim")
+
+    from core.intelligence import RootCauseEngine
+    engine = RootCauseEngine()
 
     for item in results:
         severity = item.get('severity', 'info').lower()
@@ -38,11 +42,14 @@ def display_analyzer_results(title, results):
         elif severity == "medium": color = "yellow"
         elif severity == "info": color = "green"
         
+        root_cause = engine.analyze(item)
+        
         table.add_row(
             item.get('category', 'N/A'),
             item.get('source', 'N/A'),
             f"[{color}]{severity.upper()}[/{color}]",
-            item.get('message', '')
+            item.get('message', ''),
+            root_cause
         )
     
     console.print(table)
