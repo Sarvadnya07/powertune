@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    PowerTune — Cross-vendor laptop optimization & diagnostics CLI dispatcher.
+    PowerTune - Cross-vendor laptop optimization & diagnostics CLI dispatcher.
 
 .DESCRIPTION
     The main entry point for PowerTune. Handles sub-command routing, vendor detection,
@@ -40,7 +40,7 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
-# ─── Paths ────────────────────────────────────────────────────────────────────
+# --- Paths --------------------------------------------------------------------
 $Root        = Split-Path $PSScriptRoot -Parent
 $ProfilesDir = Join-Path $Root "profiles"
 $VendorDir   = Join-Path $Root "vendor"
@@ -51,26 +51,21 @@ $ReportsDir  = Join-Path $Root "reports"
 # Ensure reports directory exists
 if (!(Test-Path $ReportsDir)) { New-Item -ItemType Directory -Path $ReportsDir | Out-Null }
 
-# ─── Helpers ──────────────────────────────────────────────────────────────────
+# --- Helpers ------------------------------------------------------------------
 function Write-Banner {
     Clear-Host
     Write-Host ""
-    Write-Host "  ██████╗  ██████╗ ██╗    ██╗███████╗██████╗ ████████╗██╗   ██╗███╗   ██╗███████╗" -ForegroundColor Cyan
-    Write-Host "  ██╔══██╗██╔═══██╗██║    ██║██╔════╝██╔══██╗╚══██╔══╝██║   ██║████╗  ██║██╔════╝" -ForegroundColor Cyan
-    Write-Host "  ██████╔╝██║   ██║██║ █╗ ██║█████╗  ██████╔╝   ██║   ██║   ██║██╔██╗ ██║█████╗  " -ForegroundColor Cyan
-    Write-Host "  ██╔═══╝ ██║   ██║██║███╗██║██╔══╝  ██╔══██╗   ██║   ██║   ██║██║╚██╗██║██╔══╝  " -ForegroundColor Cyan
-    Write-Host "  ██║     ╚██████╔╝╚███╔███╔╝███████╗██║  ██║   ██║   ╚██████╔╝██║ ╚████║███████╗" -ForegroundColor Cyan
-    Write-Host "  ╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═══╝╚══════╝" -ForegroundColor Cyan
+    Write-Host "  POWERTUNE - Systems Observability & Power Intelligence" -ForegroundColor Cyan
     Write-Host ""
     Write-Host "  Safe, explainable, reversible laptop optimization & diagnostics." -ForegroundColor Gray
-    Write-Host "  v1.0.0  |  MIT License  |  https://github.com/you/powertune" -ForegroundColor DarkGray
+    Write-Host "  v1.1.0  |  MIT License  |  https://github.com/Sarvadnya07/powertune" -ForegroundColor DarkGray
     Write-Host ""
-    Write-Host "  ─────────────────────────────────────────────────────────────────" -ForegroundColor DarkGray
+    Write-Host "  -----------------------------------------------------------------" -ForegroundColor DarkGray
     Write-Host ""
 }
 
 function Write-Header([string]$Text) {
-    Write-Host "  🔹 $Text" -ForegroundColor Cyan
+    Write-Host "  [>] $Text" -ForegroundColor Cyan
     Write-Host ""
 }
 
@@ -96,10 +91,10 @@ function Write-Warn([string]$Text) {
 
 function Write-DryRun {
     Write-Host ""
-    Write-Host "  ┌─────────────────────────────────────────────────────────────┐" -ForegroundColor DarkYellow
-    Write-Host "  │  DRY-RUN MODE — No changes have been made to your system.   │" -ForegroundColor DarkYellow
-    Write-Host "  │  Re-run with -Apply (as Administrator) to commit changes.   │" -ForegroundColor DarkYellow
-    Write-Host "  └─────────────────────────────────────────────────────────────┘" -ForegroundColor DarkYellow
+    Write-Host "  ***************************************************************" -ForegroundColor DarkYellow
+    Write-Host "  *  DRY-RUN MODE - No changes have been made to your system.   *" -ForegroundColor DarkYellow
+    Write-Host "  *  Re-run with -Apply (as Administrator) to commit changes.   *" -ForegroundColor DarkYellow
+    Write-Host "  ***************************************************************" -ForegroundColor DarkYellow
     Write-Host ""
 }
 
@@ -135,7 +130,7 @@ function Test-Python {
     return $true
 }
 
-# ─── Command: help ────────────────────────────────────────────────────────────
+# --- Command: help ------------------------------------------------------------
 function Invoke-Help {
     Write-Host "  USAGE:" -ForegroundColor White
     Write-Host "    .\cli\powertune.ps1 <command> [-Apply] [-SnapshotId <id>]"
@@ -172,7 +167,7 @@ function Invoke-Help {
     Write-Host ""
 }
 
-# ─── Command: analyze ─────────────────────────────────────────────────────────
+# --- Command: analyze ---------------------------------------------------------
 function Invoke-Analyze {
     Write-Header "Diagnostic Analyzer"
 
@@ -208,13 +203,13 @@ function Invoke-Analyze {
         $depsOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Gray }
         Write-Host ""
 
-        Write-Host "  ─────────────────────────────────────────────────────────────────" -ForegroundColor DarkGray
+        Write-Host "  -----------------------------------------------------------------" -ForegroundColor DarkGray
         Write-Working "Running Advanced AI Telemetry & Recommendation Engine..."
         $telOut = & $py "$Root\core\telemetry.py" "$Root" 2>&1
         $telOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Cyan }
         Write-Host ""
     } else {
-        Write-Warn "Skipping Python analyzers — Python not available."
+        Write-Warn "Skipping Python analyzers - Python not available."
         Write-Info "Running PowerShell-only diagnostics..."
         Write-Host ""
 
@@ -239,7 +234,7 @@ function Invoke-Analyze {
     }
 }
 
-# ─── Command: benchmark ───────────────────────────────────────────────────────
+# --- Command: benchmark -------------------------------------------------------
 function Invoke-Benchmark {
     Write-Header "Performance & Efficiency Benchmark"
     if (Test-Python) {
@@ -250,13 +245,13 @@ function Invoke-Benchmark {
     }
 }
 
-# ─── Command: profile dispatcher ──────────────────────────────────────────────
+# --- Command: profile dispatcher ----------------------------------------------
 function Invoke-Profile([string]$ProfileName) {
     Write-Header "$ProfileName Profile"
 
     if ($Apply -and -not (Test-Admin)) {
         Write-Warn "-Apply requires Administrator privileges."
-        Write-Info "Right-click powertune.ps1 → Run as Administrator, then re-run with -Apply."
+        Write-Info "Right-click powertune.ps1 -> Run as Administrator, then re-run with -Apply."
         exit 1
     }
 
@@ -279,7 +274,7 @@ function Invoke-Profile([string]$ProfileName) {
     }
 }
 
-# ─── Command: vendor ──────────────────────────────────────────────────────────
+# --- Command: vendor ----------------------------------------------------------
 function Invoke-Vendor {
     Write-Header "Vendor Detection & Bloat Report"
     $vendor = Detect-Vendor
@@ -294,7 +289,7 @@ function Invoke-Vendor {
     }
 }
 
-# ─── Command: restore ─────────────────────────────────────────────────────────
+# --- Command: restore ---------------------------------------------------------
 function Invoke-Restore {
     Write-Header "System Restore"
 
@@ -309,7 +304,7 @@ function Invoke-Restore {
     & $restoreScript -Apply:$Apply -SnapshotId $SnapshotId -RootDir $Root
 }
 
-# ─── Command: dashboard ───────────────────────────────────────────────────────
+# --- Command: dashboard -------------------------------------------------------
 function Invoke-Dashboard {
     Write-Header "Interactive Observability Dashboard"
     if (Test-Python) {
@@ -320,7 +315,7 @@ function Invoke-Dashboard {
     }
 }
 
-# ─── Main ─────────────────────────────────────────────────────────────────────
+# --- Main ---------------------------------------------------------------------
 Write-Banner
 
 try {
@@ -344,6 +339,6 @@ try {
 }
 
 Write-Host ""
-Write-Host "  ─────────────────────────────────────────────────────────────────" -ForegroundColor DarkGray
+Write-Host "  -----------------------------------------------------------------" -ForegroundColor DarkGray
 Write-Host "  PowerTune | All changes are logged to reports/changes.log" -ForegroundColor DarkGray
 Write-Host ""

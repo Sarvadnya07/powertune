@@ -8,7 +8,7 @@ Automates environment setup, dependency installation, and PATH configuration.
 $ErrorActionPreference = "Stop"
 
 Write-Host "  =====================================================" -ForegroundColor Cyan
-Write-Host "   PowerTune — Platform Installation & Setup" -ForegroundColor Cyan
+Write-Host "   PowerTune - Platform Installation & Setup" -ForegroundColor Cyan
 Write-Host "  =====================================================" -ForegroundColor Cyan
 Write-Host ""
 
