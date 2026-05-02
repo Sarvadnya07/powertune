@@ -3,7 +3,7 @@ import subprocess
 def analyze_gpu_residency():
     print("     [*] Analyzing GPU Residency & Wakeups...")
     try:
-        smi_output = subprocess.check_output(["nvidia-smi", "--query-compute-apps=pid,process_name", "--format=csv,noheader"], text=True)
+        smi_output = subprocess.check_output(["nvidia-smi", "--query-compute-apps=pid,process_name", "--format=csv,noheader"], text=True, timeout=5.0)
         apps = [line.strip() for line in smi_output.splitlines() if line.strip()]
         
         if not apps:

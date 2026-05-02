@@ -20,10 +20,10 @@ $snapshotData = @{
     Timestamp = (Get-Date -Format s)
     Profile = $Profile
     ActiveScheme = $activeScheme
-    CpuMinAc = [Convert]::ToInt32($minAcRaw, 16)
-    CpuMinDc = [Convert]::ToInt32($minDcRaw, 16)
-    CpuMaxAc = [Convert]::ToInt32($maxAcRaw, 16)
-    CpuMaxDc = [Convert]::ToInt32($maxDcRaw, 16)
+    CpuMinAc = if ($minAcRaw) { [Convert]::ToInt32($minAcRaw, 16) } else { $null }
+    CpuMinDc = if ($minDcRaw) { [Convert]::ToInt32($minDcRaw, 16) } else { $null }
+    CpuMaxAc = if ($maxAcRaw) { [Convert]::ToInt32($maxAcRaw, 16) } else { $null }
+    CpuMaxDc = if ($maxDcRaw) { [Convert]::ToInt32($maxDcRaw, 16) } else { $null }
 }
 
 $snapshotData | ConvertTo-Json | Out-File -FilePath $snapshotFile -Encoding UTF8

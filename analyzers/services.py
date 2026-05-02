@@ -6,7 +6,7 @@ def check_services():
     print("     [*] Analyzing background services...")
     found = False
     try:
-        output = subprocess.check_output(["powershell", "-Command", "Get-Service | Select-Object Name, Status"], text=True)
+        output = subprocess.check_output(["powershell", "-Command", "Get-Service | Select-Object Name, Status"], text=True, timeout=15.0)
         for line in output.splitlines():
             for bloat in BLOAT_SERVICES:
                 if bloat in line and "Running" in line:

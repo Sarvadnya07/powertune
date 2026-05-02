@@ -11,7 +11,7 @@ except ImportError:
 def run_battery_report(output_path):
     print("     [*] Generating powercfg /batteryreport...")
     try:
-        subprocess.run(["powercfg", "/batteryreport", "/output", output_path], check=True, capture_output=True)
+        subprocess.run(["powercfg", "/batteryreport", "/output", output_path], check=True, capture_output=True, timeout=10.0)
         return True
     except subprocess.CalledProcessError:
         return False

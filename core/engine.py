@@ -1,21 +1,132 @@
 import os
 import sys
 import subprocess
+import re
+import json
+import datetime
 try:
     import yaml
 except ImportError:
     yaml = None
+
+class JsonLogger:
+    def __init__(self, log_dir):
+        os.makedirs(log_dir, exist_ok=True)
+        self.log_file = os.path.join(log_dir, "changes.log")
+        
+    def log(self, action, result, risk, why):
+        entry = {
+            "timestamp": datetime.datetime.now().isoformat(),
+            "action": action,
+            "result": result,
+            "risk": risk,
+            "why": why
+        }
+        with open(self.log_file, 'a', encoding='utf-8') as f:
+            f.write(json.dumps(entry) + '\n')
 
 CRITICAL_SERVICES_BLOCKLIST = {
     "windefend", "mpssvc", "wuauserv", "dhcp", "rpcss", 
     "dcomlaunch", "plugplay", "audiosrv", "winmgmt", "wscsvc"
 }
 
-def run_powershell(script, args=None):
+def run_powershell(script, args=None, timeout=10.0):
     cmd = ["powershell", "-ExecutionPolicy", "Bypass", "-File", script]
     if args:
         cmd.extend(args)
-    subprocess.run(cmd)
+    subprocess.run(cmd, timeout=timeout, check=True)
+
+class BaseTweak:
+    def __init__(self, tweak_data, logger=None):
+        self.risk = tweak_data.get('risk', 'Unknown')
+        self.why = tweak_data.get('why', '')
+        self.logger = logger
+
+    def execute(self, apply_changes):
+        raise NotImplementedError
+
+class CpuMinStateTweak(BaseTweak):
+    def __init__(self, tweak_data, logger=None):
+        super().__init__(tweak_data, logger)
+        self.val = tweak_data.get('value')
+
+    def execute(self, apply_changes):
+        if apply_changes:
+            subprocess.run(["powercfg", "/setdcvalueindex", "SCHEME_CURRENT", "SUB_PROCESSOR", "PROCTHROTTLEMIN", str(self.val)], timeout=5.0, check=True)
+            subprocess.run(["powercfg", "/setacvalueindex", "SCHEME_CURRENT", "SUB_PROCESSOR", "PROCTHROTTLEMIN", str(self.val)], timeout=5.0, check=True)
+            subprocess.run(["powercfg", "/setactive", "SCHEME_CURRENT"], timeout=5.0, check=True)
+            print(f"     [+] Lowered CPU Minimum State to {self.val}% (Risk: {self.risk})")
+            if self.logger:
+                self.logger.log(f"Set CPU Min State to {self.val}%", "Success", self.risk, self.why)
+        else:
+            print(f"     [+] (Dry-Run) Would lower CPU Minimum State to {self.val}% (Risk: {self.risk})")
+        print(f"         WHY: {self.why}")
+
+class CpuMaxStateTweak(BaseTweak):
+    def __init__(self, tweak_data, logger=None):
+        super().__init__(tweak_data, logger)
+        self.val = tweak_data.get('value')
+
+    def execute(self, apply_changes):
+        if apply_changes:
+            subprocess.run(["powercfg", "/setdcvalueindex", "SCHEME_CURRENT", "SUB_PROCESSOR", "PROCTHROTTLEMAX", str(self.val)], timeout=5.0, check=True)
+            subprocess.run(["powercfg", "/setacvalueindex", "SCHEME_CURRENT", "SUB_PROCESSOR", "PROCTHROTTLEMAX", str(self.val)], timeout=5.0, check=True)
+            subprocess.run(["powercfg", "/setactive", "SCHEME_CURRENT"], timeout=5.0, check=True)
+            print(f"     [+] Capped CPU Max State to {self.val}% (Risk: {self.risk})")
+            if self.logger:
+                self.logger.log(f"Set CPU Max State to {self.val}%", "Success", self.risk, self.why)
+        else:
+            print(f"     [+] (Dry-Run) Would cap CPU Max State to {self.val}% (Risk: {self.risk})")
+        print(f"         WHY: {self.why}")
+
+class ActiveSchemeTweak(BaseTweak):
+    def __init__(self, tweak_data, logger=None):
+        super().__init__(tweak_data, logger)
+        self.guid = tweak_data.get('guid')
+        self.name = tweak_data.get('name', 'Custom')
+
+    def execute(self, apply_changes):
+        if apply_changes:
+            subprocess.run(["powercfg", "/setactive", self.guid], timeout=5.0, check=True)
+            print(f"     [+] Switched to {self.name} Scheme (Risk: {self.risk})")
+            if self.logger:
+                self.logger.log(f"Switched Power Scheme to {self.name}", "Success", self.risk, self.why)
+        else:
+            print(f"     [+] (Dry-Run) Would switch to {self.name} Scheme (Risk: {self.risk})")
+        print(f"         WHY: {self.why}")
+
+class ServiceDisableTweak(BaseTweak):
+    def __init__(self, tweak_data, logger=None):
+        super().__init__(tweak_data, logger)
+        self.target = tweak_data.get('target', '')
+
+    def execute(self, apply_changes):
+        if not re.match(r'^[a-zA-Z0-9.\-_]+$', self.target):
+            if self.logger: self.logger.log(f"Disable service {self.target}", "Blocked: Injection attempt", "Critical", "")
+            print(f"     [!] SECURITY VIOLATION: Invalid service name format '{self.target}'. Command injection blocked.")
+            sys.exit(1)
+            
+        if self.target.lower() in CRITICAL_SERVICES_BLOCKLIST:
+            if self.logger: self.logger.log(f"Disable service {self.target}", "Blocked: Critical service", "Critical", "")
+            print(f"     [!] SECURITY VIOLATION: Blocked attempt to disable critical service '{self.target}'.")
+            print("         See docs/SAFETY_POLICY.md for rules. Execution halted.")
+            sys.exit(1)
+            
+        if apply_changes:
+            subprocess.run(["powershell", "-Command", f"Stop-Service -Name {self.target} -Force -ErrorAction SilentlyContinue"], timeout=10.0, check=True)
+            print(f"     [+] Stopped Service: {self.target} (Risk: {self.risk})")
+            if self.logger:
+                self.logger.log(f"Stopped service {self.target}", "Success", self.risk, self.why)
+        else:
+            print(f"     [+] (Dry-Run) Would stop service: {self.target} (Risk: {self.risk})")
+        print(f"         WHY: {self.why}")
+
+TWEAK_REGISTRY = {
+    'cpu_min_state': CpuMinStateTweak,
+    'cpu_max_state': CpuMaxStateTweak,
+    'active_scheme': ActiveSchemeTweak,
+    'service_disable': ServiceDisableTweak
+}
 
 def execute_profile(yaml_path, apply_changes=False, root_dir="."):
     if not yaml:
@@ -32,63 +143,28 @@ def execute_profile(yaml_path, apply_changes=False, root_dir="."):
     print(f"     [*] Configuring Profile: {profile.get('profile', 'Unknown').upper()}...")
     print(f"         {profile.get('description', '')}")
 
+    logger = JsonLogger(os.path.join(root_dir, "reports")) if apply_changes else None
+
     if apply_changes:
         run_powershell(os.path.join(root_dir, "rollback", "snapshot.ps1"), ["-Profile", profile.get("profile", "unknown")])
+        if logger: logger.log("Generated Snapshot", "Success", "None", "Atomic state capture before execution")
 
-    for tweak in profile.get('tweaks', []):
-        tweak_id = tweak.get('id')
-        risk = tweak.get('risk', 'Unknown')
-        why = tweak.get('why', '')
-        
-        if tweak_id == 'cpu_min_state':
-            val = tweak.get('value')
-            if apply_changes:
-                subprocess.run(["powercfg", "/setdcvalueindex", "SCHEME_CURRENT", "SUB_PROCESSOR", "PROCTHROTTLEMIN", str(val)])
-                subprocess.run(["powercfg", "/setacvalueindex", "SCHEME_CURRENT", "SUB_PROCESSOR", "PROCTHROTTLEMIN", str(val)])
-                subprocess.run(["powercfg", "/setactive", "SCHEME_CURRENT"])
-                print(f"     [+] Lowered CPU Minimum State to {val}% (Risk: {risk})")
-                print(f"         WHY: {why}")
+    try:
+        for tweak_data in profile.get('tweaks', []):
+            tweak_id = tweak_data.get('id')
+            tweak_class = TWEAK_REGISTRY.get(tweak_id)
+            if tweak_class:
+                tweak = tweak_class(tweak_data, logger)
+                tweak.execute(apply_changes)
             else:
-                print(f"     [+] (Dry-Run) Would lower CPU Minimum State to {val}% (Risk: {risk})")
-                print(f"         WHY: {why}")
-                
-        elif tweak_id == 'cpu_max_state':
-            val = tweak.get('value')
-            if apply_changes:
-                subprocess.run(["powercfg", "/setdcvalueindex", "SCHEME_CURRENT", "SUB_PROCESSOR", "PROCTHROTTLEMAX", str(val)])
-                subprocess.run(["powercfg", "/setacvalueindex", "SCHEME_CURRENT", "SUB_PROCESSOR", "PROCTHROTTLEMAX", str(val)])
-                subprocess.run(["powercfg", "/setactive", "SCHEME_CURRENT"])
-                print(f"     [+] Capped CPU Max State to {val}% (Risk: {risk})")
-                print(f"         WHY: {why}")
-            else:
-                print(f"     [+] (Dry-Run) Would cap CPU Max State to {val}% (Risk: {risk})")
-                print(f"         WHY: {why}")
-                
-        elif tweak_id == 'active_scheme':
-            guid = tweak.get('guid')
-            name = tweak.get('name', 'Custom')
-            if apply_changes:
-                subprocess.run(["powercfg", "/setactive", guid])
-                print(f"     [+] Switched to {name} Scheme (Risk: {risk})")
-                print(f"         WHY: {why}")
-            else:
-                print(f"     [+] (Dry-Run) Would switch to {name} Scheme (Risk: {risk})")
-                print(f"         WHY: {why}")
-                
-        elif tweak_id == 'service_disable':
-            target = tweak.get('target', '')
-            if target.lower() in CRITICAL_SERVICES_BLOCKLIST:
-                print(f"     [!] SECURITY VIOLATION: Blocked attempt to disable critical service '{target}'.")
-                print("         See docs/SAFETY_POLICY.md for rules. Execution halted.")
-                sys.exit(1)
-                
-            if apply_changes:
-                subprocess.run(["powershell", "-Command", f"Stop-Service -Name {target} -Force -ErrorAction SilentlyContinue"])
-                print(f"     [+] Stopped Service: {target} (Risk: {risk})")
-                print(f"         WHY: {why}")
-            else:
-                print(f"     [+] (Dry-Run) Would stop service: {target} (Risk: {risk})")
-                print(f"         WHY: {why}")
+                print(f"     [!] Unknown tweak ID: {tweak_id}")
+    except Exception as e:
+        print(f"     [!] FATAL ERROR during profile execution: {e}")
+        if apply_changes:
+            print("     [*] ATOMIC ROLLBACK INITIATED: Reverting system to snapshot...")
+            if logger: logger.log("Atomic Rollback Triggered", "Failed Execution", "High", str(e))
+            run_powershell(os.path.join(root_dir, "rollback", "restore.ps1"), ["-Apply"])
+            sys.exit(1)
 
     if apply_changes:
         print("     [+] Applied Profile successfully.")

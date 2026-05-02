@@ -4,7 +4,7 @@ def check_cpu():
     print("     [*] Analyzing CPU state...")
     try:
         # Check active scheme
-        output = subprocess.check_output(["powercfg", "/getactivescheme"], text=True)
+        output = subprocess.check_output(["powercfg", "/getactivescheme"], text=True, timeout=5.0)
         print(f"     [+] Active Scheme: {output.strip()}")
     except Exception as e:
         print(f"     [!] Failed to get CPU scheme: {e}")
