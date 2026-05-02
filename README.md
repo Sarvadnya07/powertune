@@ -14,6 +14,8 @@
 ## 📖 Overview
 PowerTune is not an "optimizer script". It is an **evidence-driven, zero-trust power intelligence framework**. Designed for Systems Engineers, Developers, and Power Users, it replaces dangerous registry hacks with a completely transparent, declarative YAML execution engine. 
 
+![PowerTune Dashboard Mockup](C:\Users\ASUS\.gemini\antigravity\brain\e0ce0b80-665d-4d87-a374-0d38bb08e37e\powertune_dashboard_mockup_1777725584509.png)
+
 PowerTune tracks exactly what processes wake your CPU, identifies DPC latency spikes, blocks malicious injections via an Intent Firewall, and guarantees 100% reversible changes via an Atomic Rollback snapshot system.
 
 ## ✨ Elite Features
@@ -30,9 +32,12 @@ PowerTune tracks exactly what processes wake your CPU, identifies DPC latency sp
 Ensure you have **Python 3.10+** and **PowerShell 5.1+** installed.
 
 ```powershell
+# Clone the repository
 git clone https://github.com/Sarvadnya07/powertune.git
 cd powertune
-pip install -r requirements.txt
+
+# Run the professional installer (Automated setup & PATH config)
+.\install.ps1
 ```
 
 ---

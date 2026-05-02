@@ -5,7 +5,7 @@ import subprocess
 
 def collect_telemetry(root_dir="."):
     analyzers_dir = os.path.join(root_dir, "analyzers")
-    scripts = ["gpu_residency.py", "sleep_states.py", "timers.py", "anomaly.py", "power_attribution.py", "thermal.py"]
+    scripts = ["gpu_residency.py", "sleep_states.py", "timers.py", "anomaly.py", "power_attribution.py", "thermal.py", "privacy.py"]
     
     master_telemetry = []
     
