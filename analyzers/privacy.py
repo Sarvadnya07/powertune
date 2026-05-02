@@ -2,7 +2,7 @@ import subprocess
 import json
 import argparse
 
-def analyze_privacy(json_mode=False):
+def get_telemetry():
     telemetry = []
     
     # 1. Check for active ETW Telemetry Providers (e.g., Microsoft.Windows.Privacy.Diagnostic)
@@ -46,6 +46,10 @@ def analyze_privacy(json_mode=False):
             "source": "system",
             "message": f"Could not complete privacy scan: {e}"
         })
+    return telemetry
+
+def analyze_privacy(json_mode=False):
+    telemetry = get_telemetry()
         
     if json_mode:
         print(json.dumps(telemetry))

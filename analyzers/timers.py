@@ -2,10 +2,10 @@ import subprocess
 import json
 import argparse
 
-def analyze_timers(json_mode=False):
+def get_telemetry():
     telemetry = []
     try:
-        output = subprocess.check_output(["powercfg", "-energy", "-trace", "-duration", "1"], text=True, timeout=10.0)
+        output = subprocess.check_output(["powercfg", "-energy", "-trace", "-duration", "1"], text=True, timeout=10.0, stderr=subprocess.STDOUT)
         telemetry.append({
             "category": "timers",
             "severity": "info",
@@ -19,6 +19,10 @@ def analyze_timers(json_mode=False):
             "source": "system",
             "message": f"Could not trace timers: {e}"
         })
+    return telemetry
+
+def analyze_timers(json_mode=False):
+    telemetry = get_telemetry()
 
     if json_mode:
         print(json.dumps(telemetry))

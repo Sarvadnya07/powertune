@@ -2,7 +2,7 @@ import subprocess
 import json
 import argparse
 
-def analyze_power_attribution(json_mode=False):
+def get_telemetry():
     telemetry = []
     try:
         # Use PowerShell to grab process metrics. 
@@ -48,6 +48,10 @@ def analyze_power_attribution(json_mode=False):
             "source": "system",
             "message": f"Could not calculate power attribution: {e}"
         })
+    return telemetry
+
+def analyze_power_attribution(json_mode=False):
+    telemetry = get_telemetry()
         
     if json_mode:
         print(json.dumps(telemetry))

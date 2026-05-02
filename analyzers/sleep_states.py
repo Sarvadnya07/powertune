@@ -2,7 +2,7 @@ import subprocess
 import json
 import argparse
 
-def analyze_sleep_states(json_mode=False):
+def get_telemetry():
     telemetry = []
     try:
         # Event ID 1: System Sleep, Event ID 42: Kernel-Power entering sleep, Event ID 507: Modern Standby exit
@@ -43,6 +43,10 @@ def analyze_sleep_states(json_mode=False):
             "source": "system",
             "message": f"Could not read wake events: {e}"
         })
+    return telemetry
+
+def analyze_sleep_states(json_mode=False):
+    telemetry = get_telemetry()
         
     if json_mode:
         print(json.dumps(telemetry))

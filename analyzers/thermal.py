@@ -2,7 +2,7 @@ import subprocess
 import json
 import argparse
 
-def analyze_thermals(json_mode=False):
+def get_telemetry():
     telemetry = []
     try:
         # Many modern Windows systems expose thermal zones via MSAcpi_ThermalZoneTemperature
@@ -67,6 +67,10 @@ def analyze_thermals(json_mode=False):
             "source": "system",
             "message": f"Could not read thermal probes: {e}"
         })
+    return telemetry
+
+def analyze_thermals(json_mode=False):
+    telemetry = get_telemetry()
         
     if json_mode:
         print(json.dumps(telemetry))

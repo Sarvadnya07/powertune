@@ -2,7 +2,7 @@ import subprocess
 import json
 import argparse
 
-def analyze_gpu_residency(json_mode=False):
+def get_telemetry():
     telemetry = []
     try:
         smi_output = subprocess.check_output(["nvidia-smi", "--query-compute-apps=pid,process_name", "--format=csv,noheader"], text=True, timeout=5.0)
@@ -30,6 +30,10 @@ def analyze_gpu_residency(json_mode=False):
             "source": "system",
             "message": "nvidia-smi not found or dGPU is not NVIDIA."
         })
+    return telemetry
+
+def analyze_gpu_residency(json_mode=False):
+    telemetry = get_telemetry()
         
     if json_mode:
         print(json.dumps(telemetry))

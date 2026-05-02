@@ -3,7 +3,7 @@ import json
 import argparse
 import time
 
-def analyze_anomalies(json_mode=False):
+def get_telemetry():
     telemetry = []
     try:
         # Check for sustained high CPU usage by background processes (potential miner or runaway telemetry)
@@ -46,6 +46,10 @@ def analyze_anomalies(json_mode=False):
             "source": "system",
             "message": f"Could not complete anomaly scan: {e}"
         })
+    return telemetry
+
+def analyze_anomalies(json_mode=False):
+    telemetry = get_telemetry()
         
     if json_mode:
         print(json.dumps(telemetry))

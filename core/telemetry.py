@@ -1,31 +1,57 @@
+import os
+import sys
+import json
+import subprocess
+
+if len(sys.argv) > 1:
+    sys.path.insert(0, sys.argv[1])
+
 try:
     from core.ui import display_analyzer_results, show_recommendation_panel, console
     UI_AVAILABLE = True
 except ImportError:
     UI_AVAILABLE = False
 
+import concurrent.futures
+
+import importlib.util
+
+def run_analyzer(script_path):
+    try:
+        module_name = os.path.splitext(os.path.basename(script_path))[0]
+        spec = importlib.util.spec_from_file_location(module_name, script_path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        
+        # Check if the module exposes a specific get_telemetry or analyze method
+        if hasattr(module, 'get_telemetry'):
+            return module.get_telemetry()
+            
+        # Fallback to subprocess if not yet refactored
+        py_cmd = sys.executable if sys.executable else "python"
+        out = subprocess.check_output([py_cmd, script_path, "--json"], text=True, timeout=15.0, stderr=subprocess.STDOUT)
+        results = []
+        for line in out.splitlines():
+            if line.startswith("[") and line.endswith("]"):
+                data = json.loads(line)
+                results.extend(data)
+        return results
+    except Exception as e:
+        return []
+
 def collect_telemetry(root_dir="."):
     analyzers_dir = os.path.join(root_dir, "analyzers")
-    # Dynamically find all .py files in analyzers/
-    scripts = [f for f in os.listdir(analyzers_dir) if f.endswith(".py") and f != "__init__.py"]
+    scripts = ["gpu_residency.py", "sleep_states.py", "timers.py", "anomaly.py", "power_attribution.py", "thermal.py", "privacy.py"]
     
     master_telemetry = []
     
     if not UI_AVAILABLE:
         print("     [*] Running Unified Telemetry Diagnostics...")
     
-    for script in scripts:
-        script_path = os.path.join(analyzers_dir, script)
-        try:
-            # Determine python command
-            py_cmd = sys.executable if sys.executable else "python"
-            out = subprocess.check_output([py_cmd, script_path, "--json"], text=True, timeout=15.0)
-            for line in out.splitlines():
-                if line.startswith("[") and line.endswith("]"):
-                    data = json.loads(line)
-                    master_telemetry.extend(data)
-        except Exception:
-            pass
+    with concurrent.futures.ThreadPoolExecutor(max_workers=len(scripts) or 1) as executor:
+        futures = [executor.submit(run_analyzer, os.path.join(analyzers_dir, script)) for script in scripts]
+        for future in concurrent.futures.as_completed(futures):
+            master_telemetry.extend(future.result())
                 
     return master_telemetry
 
