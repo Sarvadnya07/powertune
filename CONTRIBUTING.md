@@ -1,75 +1,58 @@
-# Contributing to PowerTune
+# Contributing to the PowerTune Ecosystem
 
-Thank you for your interest in contributing! Before writing any code, please read this document carefully — it defines the **non-negotiable principles** that every contribution must uphold.
+Welcome to PowerTune. This project has evolved from a simple script collection into an **Elite-Level Systems Observability and Power Intelligence Platform**. 
 
----
-
-## The Core Rule
-
-> Every optimization PowerTune applies must be **explainable**, **reversible**, and **evidence-driven**.
-
-If you cannot explain *why* a change improves battery life or performance with a concrete technical reason, it does not belong here.
+Because we operate in a space plagued by "placebo optimizers" and dangerous registry hacks, we enforce an extremely strict engineering culture. If you are submitting code or configuration profiles here, you are agreeing to these standards.
 
 ---
 
-## Before You Submit a PR
-
-### For new optimization tweaks:
-- [ ] You have a clear technical explanation for WHY this change works (link to docs, benchmarks, or source code if possible).
-- [ ] The change is reversible. The profile script must call `snapshot.ps1` before applying.
-- [ ] The change is gated behind the `-Apply` flag. Default execution is always dry-run.
-- [ ] You have tested it on at least one real machine and documented the behavior.
-
-### For new analyzer modules (`analyzers/*.py`):
-- [ ] The analyzer outputs the standard contract: `status`, `message`, `why`, `recommendation`.
-- [ ] You have written at least one unit test in `tests/` with mock data.
-- [ ] The analyzer does **not** modify any system state — analyzers are read-only.
-
-### For new vendor modules (`vendor/*.ps1`):
-- [ ] The module auto-detects the vendor using WMI or service presence (not hardcoded).
-- [ ] Service detection uses service names (not display names) for reliability.
-- [ ] The module clearly marks which actions are destructive and requires the `-Apply` flag.
+## 🛑 1. The Zero-Placebo Rule
+PowerTune operates purely on **Evidence-Driven Optimization**. 
+- We do NOT accept "RAM Cleaners", "TCP Network Boosters", or "Gaming Mode Registry Spams".
+- Every single profile tweak must have a measurable, scientific impact. If you cannot prove it reduces WMI battery drain rates, decreases CPU package power, or resolves DPC latency, your PR will be rejected.
 
 ---
 
-## What We Do NOT Accept
+## 🧩 2. YAML Declarative Profiles (No Spaghetti PowerShell)
+Do not submit raw `.ps1` or `.bat` files for system tweaks.
+All optimizations must be submitted as **Declarative YAML Profiles** (`profiles/*.yaml`). 
 
-- Placebo tweaks (e.g., "clear RAM" scripts that just run `EmptyWorkingSet`)
-- Tweaks that disable security features (e.g., Windows Defender, UAC)
-- Permanent registry modifications without a documented and tested rollback path
-- Scripts that require admin for diagnostic-only operations
-
----
-
-## Development Setup
-
-```powershell
-# Clone and set up Python dependencies
-git clone https://github.com/you/powertune
-cd powertune
-pip install beautifulsoup4 lxml
-
-# Run the test suite
-python -m pytest tests/ -v
-
-# Run the analyzer (no admin needed)
-.\cli\powertune.ps1 analyze
-```
+Your YAML tweak must include:
+1. `id`: Must map to an existing handler in `engine.py`.
+2. `risk`: Must be classified (Low, Medium, High, Critical).
+3. `why`: A mandatory, human-readable rationale that will be displayed in the CLI to educate the user.
 
 ---
 
-## Code Style
-
-- **PowerShell**: Use `Write-Host` with color coding. `Cyan` = headers, `Yellow` = working, `Green` = success, `Red` = error, `Gray` = WHY explanations.
-- **Python**: Follow PEP 8. Every public function must have a docstring. Use type hints.
-- **Comments**: Prefer WHY comments over WHAT comments.
+## 🛡️ 3. Mandatory Rollback & Reversibility
+We operate on a **Transaction-Based Optimization Model**. 
+- If you add a new tweak handler to `core/engine.py`, you **MUST** ensure that `rollback/snapshot.ps1` and `rollback/restore.ps1` are updated to capture and restore the state of whatever subsystem you are touching.
+- Permanent, irreversible changes to the OS are strictly forbidden.
 
 ---
 
-## Reporting Issues
+## 📊 4. Telemetry Standard
+If you are submitting a new analyzer (e.g., `analyzers/memory_pressure.py`), it must integrate with our **Unified Telemetry Schema**.
+- Do not just `print()` outputs.
+- Your analyzer must support the `--json` flag and output an array of telemetry objects containing: `category`, `severity`, `source`, and `message`.
+- This ensures your data can be consumed by the automated AI Recommendation Engine (`core/telemetry.py`).
 
-When reporting a bug or unexpected behavior, please include:
-1. Your laptop vendor and model
-2. Output of `.\cli\powertune.ps1 analyze`
-3. The full error message
-4. Whether you ran with or without `-Apply`
+---
+
+## 🧪 5. Submitting a Pull Request
+
+When you open a PR, your description must include the following **Validation Matrix**:
+
+1. **Rationale**: Technical explanation of OS-level behavior being changed.
+2. **Benchmark Data**: Pre-and-post `core/benchmark.py` data (e.g., "Idle drain dropped from 12W to 8W").
+3. **Rollback Proof**: Proof that running `restore.ps1` returns the system identically to its prior state.
+
+### PR Checklist
+- [ ] Added `timeout=` arguments to all new subprocess calls.
+- [ ] Enforced `check=True` on state-mutating subprocesses to guarantee Atomic Rollbacks.
+- [ ] Passed the Intent Firewall (did not touch critical blocklisted services).
+- [ ] Passed the GitHub Actions CI pipeline (`flake8` and `PSScriptAnalyzer`).
+
+---
+
+We are building the definitive enterprise-grade power observability platform for Windows. Thank you for holding the line on engineering quality!

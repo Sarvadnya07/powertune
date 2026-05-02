@@ -55,11 +55,39 @@ This document outlines the strategic vision and upcoming milestones for PowerTun
 
 ---
 
-## 🤖 AI / Automation Opportunities
+## 🤖 AI & Elite Analytics (Phase 21)
 
-1.  **Rule-Based AI Recommendation Engine**:
-    *   Instead of static output, use a local heuristics engine that analyzes WMI telemetry and suggests profiles.
-    *   *Example*: "PowerTune detected that your system spends 80% of its time on battery and thermal spikes frequently during Docker builds. Recommend generating a hybrid Dev/Battery YAML profile."
+1.  **Rule-Based Recommendation Engine**: Analyze WMI telemetry and suggest profiles. (e.g., "Chrome is responsible for 37% of wakeups. Recommend Battery Profile.")
+2.  **Predictive Hardware Aging**: Forecast thermal paste degradation and battery replacement timing based on historical voltage curves.
+3.  **Adaptive Profiles**: Automatically switch between gaming, coding, and battery saver profiles based on active foreground processes.
+
+---
+
+## 🏢 Enterprise & Fleet Scale (Phase 22)
+
+1.  **Fleet Diagnostics**: Centralized reporting dashboard for monitoring multiple enterprise devices.
+2.  **Security Hardening**: Detect hidden crypto-miners, suspicious wakeup triggers, and malicious persistence mechanisms disguised as vendor bloatware.
+3.  **Compliance Mode**: Strict, IT-approved optimization policies that lock specific registry edits.
+
+---
+
+## 📊 Elite-Level Differentiators (Phase 23)
+
+1.  **Power-State Visualization**: GUI module to visualize CPU C-states, GPU residency, and exact sleep transitions (S0i3) over time.
+2.  **Wakeup Graph Analysis**: Real-time graphs showing exactly which processes are waking the CPU out of deep idle.
+3.  **DPC/ISR Latency Monitoring**: Track hard-interrupts causing audio crackling and gaming micro-stutters.
+
+---
+
+## 🌌 The Power Intelligence Ecosystem (Phases 25-38 Epics)
+
+As PowerTune matures from a diagnostics toolkit into a full **Systems Observability Platform**, the following enterprise-grade epics will be developed:
+
+*   **Event Correlation Engine**: Automatically cross-reference CPU spikes, GPU wakeups, and battery drain events to generate root-cause analysis (e.g., "Battery drain increased by 4W explicitly because Chrome requested a 1ms timer").
+*   **Time-Series Telemetry DB**: Transition from JSON logs to a local time-series database tracking thermal saturation, fan curve efficiency, and hardware aging curves over years of use.
+*   **Security & Forensics Crossover**: Implement real-time heuristics to detect crypto-miners (abnormal idle power draw) and stealth persistence mechanisms disguised as vendor telemetry.
+*   **Fleet Analytics**: Remote diagnostics and enterprise compliance modes for company-wide laptop efficiency monitoring.
+*   **Cross-Platform Expansion**: Port the diagnostic telemetry engine to Linux (eBPF) and macOS to create the ultimate, universal power-intelligence framework.
 
 ---
 

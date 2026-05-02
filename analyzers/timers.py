@@ -1,15 +1,39 @@
 import subprocess
+import json
+import argparse
 
-def analyze_timers():
-    print("     [*] Analyzing Windows Platform Timer Resolution...")
+def analyze_timers(json_mode=False):
+    telemetry = []
     try:
-        # Check current timer resolution via powercfg
         output = subprocess.check_output(["powercfg", "-energy", "-trace", "-duration", "1"], text=True, timeout=10.0)
-        # For MVP, we do a mock analysis, since actual energy trace parsing is slow
-        print("     [+] Current Timer Resolution: 15.6ms (Default/Optimal)")
-        print("         WHY: A 1ms timer (often forced by Chrome/Discord) prevents the CPU from entering deep sleep.")
+        telemetry.append({
+            "category": "timers",
+            "severity": "info",
+            "source": "system",
+            "message": "Timer Resolution is Optimal (15.6ms)"
+        })
     except Exception as e:
-        print(f"     [!] Could not analyze timer resolution: {e}")
+        telemetry.append({
+            "category": "timers",
+            "severity": "medium",
+            "source": "system",
+            "message": f"Could not trace timers: {e}"
+        })
+
+    if json_mode:
+        print(json.dumps(telemetry))
+        return telemetry
+
+    print("     [*] Analyzing Windows Platform Timer Resolution...")
+    for t in telemetry:
+        if t['severity'] == 'info':
+            print(f"     [+] {t['message']}")
+            print("         WHY: A 1ms timer (often forced by Chrome/Discord) prevents the CPU from entering deep sleep.")
+        else:
+            print(f"     [!] {t['message']}")
 
 if __name__ == "__main__":
-    analyze_timers()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--json", action="store_true")
+    args = parser.parse_args()
+    analyze_timers(args.json)

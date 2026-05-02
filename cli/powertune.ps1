@@ -109,7 +109,7 @@ function Test-Admin {
     )
 }
 
-function Detect-Vendor {
+function Get-Vendor {
     $manufacturer = (Get-CimInstance -ClassName Win32_ComputerSystem -ErrorAction SilentlyContinue).Manufacturer
     if ($manufacturer -match "ASUS|ASUSTeK") { return "asus" }
     if ($manufacturer -match "LENOVO")        { return "lenovo" }
@@ -167,7 +167,7 @@ function Invoke-Help {
 function Invoke-Analyze {
     Write-Header "Diagnostic Analyzer"
 
-    $vendor = Detect-Vendor
+    $vendor = Get-Vendor
     Write-Working "Detected vendor: $($vendor.ToUpper())"
     Write-Why "Vendor detection tailors diagnostic checks to known bloat services for your OEM."
     Write-Host ""
@@ -196,6 +196,12 @@ function Invoke-Analyze {
         Write-Working "Running dependencies analyzer..."
         $depsOut = python "$AnalyzersDir\dependencies.py" 2>&1
         $depsOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Gray }
+        Write-Host ""
+
+        Write-Host "  ─────────────────────────────────────────────────────────────────" -ForegroundColor DarkGray
+        Write-Working "Running Advanced AI Telemetry & Recommendation Engine..."
+        $telOut = python "$Root\core\telemetry.py" "$Root" 2>&1
+        $telOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Cyan }
         Write-Host ""
     } else {
         Write-Warn "Skipping Python analyzers — Python not available."
