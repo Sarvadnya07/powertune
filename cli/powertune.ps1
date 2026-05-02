@@ -137,6 +137,7 @@ function Invoke-Help {
 
     $cmds = @(
         @{ Cmd="analyze"; Desc="Run full diagnostic suite (battery, CPU, timers, services)" }
+        @{ Cmd="dashboard"; Desc="Generate and launch the interactive web dashboard" }
         @{ Cmd="battery "; Desc="Apply battery-saver optimization profile" }
         @{ Cmd="gaming  "; Desc="Apply gaming performance profile" }
         @{ Cmd="dev     "; Desc="Apply developer thermal-balanced profile" }
@@ -287,11 +288,22 @@ function Invoke-Restore {
     & $restoreScript -Apply:$Apply -SnapshotId $SnapshotId -RootDir $Root
 }
 
+# ─── Command: dashboard ───────────────────────────────────────────────────────
+function Invoke-Dashboard {
+    Write-Header "Interactive Observability Dashboard"
+    if (Test-Python) {
+        python "$Root\core\dashboard.py" "$Root"
+    } else {
+        Write-Warn "Python is required to generate the dashboard."
+    }
+}
+
 # ─── Main ─────────────────────────────────────────────────────────────────────
 Write-Banner
 
 switch ($Command) {
     "analyze" { Invoke-Analyze }
+    "dashboard" { Invoke-Dashboard }
     "battery" { Invoke-Profile "battery" }
     "gaming"  { Invoke-Profile "gaming" }
     "dev"     { Invoke-Profile "developer" }
