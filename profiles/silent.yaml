@@ -1,0 +1,7 @@
+profile: silent
+description: Minimum fan noise
+tweaks:
+  - id: cpu_max_state
+    value: 70
+    risk: Low
+    why: "Forces CPU to stay cool, preventing fans from spinning up entirely."

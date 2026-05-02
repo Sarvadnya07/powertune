@@ -1,0 +1,11 @@
+profile: battery
+description: Maximize idle efficiency and battery life
+tweaks:
+  - id: cpu_min_state
+    value: 5
+    risk: Low
+    why: "Allows CPU to enter deeper C-states and reduces idle package power."
+  - id: service_disable
+    target: "LightingService"
+    risk: Medium
+    why: "Polled RGB controllers prevent CPU sleep. Stopping this can save ~15% idle drain."

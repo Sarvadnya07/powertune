@@ -1,0 +1,8 @@
+profile: gaming
+description: Maximum FPS and minimum latency
+tweaks:
+  - id: active_scheme
+    guid: "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c"
+    name: "High Performance"
+    risk: Low
+    why: "Prevents CPU downclocking during game loads, stabilizing frametimes."

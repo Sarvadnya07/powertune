@@ -1,0 +1,7 @@
+profile: developer
+description: Stable thermals for long compiling sessions
+tweaks:
+  - id: cpu_max_state
+    value: 98
+    risk: Low
+    why: "Prevents thermal overshoot and noisy fans during long compiles (disables extreme turbo boost)."
