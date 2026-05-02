@@ -21,4 +21,12 @@ This project follows a strict evolutionary path from a diagnostic toolkit to a g
 
 ---
 
+## 🏗️ Technical Foundation
+- [Architecture & Layers](docs/architecture.md)
+- [Safety & Security Policy](SECURITY.md)
+- [Engineering Manifesto](docs/ENGINEERING_MANIFESTO.md)
+- [Whitepaper: Evidence-Driven Optimization](docs/whitepaper/evidence_driven_optimization.md)
+
+---
+
 For a detailed list of planned features, see [FUTURE_SCOPE.md](FUTURE_SCOPE.md).

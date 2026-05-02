@@ -45,6 +45,29 @@ if ($Apply) {
         powercfg /setactive SCHEME_CURRENT
     }
 
+    if ($null -ne $data.Services) {
+        Write-Host "     [*] Restoring Service States..." -ForegroundColor Yellow
+        foreach ($svc in $data.Services) {
+            $name = $svc.Name
+            $targetStart = $svc.StartType
+            $targetStatus = $svc.Status
+
+            $current = Get-Service -Name $name -ErrorAction SilentlyContinue
+            if ($current) {
+                if ($current.StartType.ToString() -ne $targetStart) {
+                    Set-Service -Name $name -StartupType $targetStart -ErrorAction SilentlyContinue
+                }
+                if ($current.Status.ToString() -ne $targetStatus) {
+                    if ($targetStatus -eq "Running") {
+                        Start-Service -Name $name -ErrorAction SilentlyContinue
+                    } else {
+                        Stop-Service -Name $name -Force -ErrorAction SilentlyContinue
+                    }
+                }
+            }
+        }
+    }
+
     Write-Host "     [+] System state restored successfully." -ForegroundColor Green
 } else {
     Write-Host "     [+] (Dry-Run) Would restore snapshot $($target.Name)" -ForegroundColor Cyan

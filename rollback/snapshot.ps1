@@ -24,6 +24,9 @@ $snapshotData = @{
     CpuMinDc = if ($minDcRaw) { [Convert]::ToInt32($minDcRaw, 16) } else { $null }
     CpuMaxAc = if ($maxAcRaw) { [Convert]::ToInt32($maxAcRaw, 16) } else { $null }
     CpuMaxDc = if ($maxDcRaw) { [Convert]::ToInt32($maxDcRaw, 16) } else { $null }
+    Services = (Get-Service | Select-Object Name, Status, StartType | ForEach-Object { 
+        @{ Name = $_.Name; Status = $_.Status.ToString(); StartType = $_.StartType.ToString() }
+    })
 }
 
 $snapshotData | ConvertTo-Json | Out-File -FilePath $snapshotFile -Encoding UTF8

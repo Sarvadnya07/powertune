@@ -29,7 +29,7 @@
 
 param(
     [Parameter(Position=0)]
-    [ValidateSet("analyze", "battery", "gaming", "dev", "silent", "vendor", "restore", "help", "")]
+    [ValidateSet("analyze", "benchmark", "battery", "gaming", "dev", "silent", "vendor", "restore", "help", "")]
     [string]$Command = "help",
 
     [switch]$Apply,
@@ -118,11 +118,18 @@ function Get-Vendor {
     return "unknown"
 }
 
+function Get-PythonCommand {
+    $venvPy = Join-Path $Root ".venv\Scripts\python.exe"
+    if (Test-Path $venvPy) { return $venvPy }
+    return "python"
+}
+
 function Test-Python {
-    $py = Get-Command python -ErrorAction SilentlyContinue
+    $pyCmd = Get-PythonCommand
+    $py = Get-Command $pyCmd -ErrorAction SilentlyContinue
     if (-not $py) {
-        Write-Warn "Python not found in PATH. Analyzer features require Python 3.8+."
-        Write-Info "Install from https://python.org and ensure it is added to PATH."
+        Write-Warn "Python not found in PATH or .venv. Analyzer features require Python 3.10+."
+        Write-Info "Run .\install.ps1 to set up the environment automatically."
         return $false
     }
     return $true
@@ -137,6 +144,7 @@ function Invoke-Help {
 
     $cmds = @(
         @{ Cmd="analyze"; Desc="Run full diagnostic suite (battery, CPU, timers, services)" }
+        @{ Cmd="benchmark"; Desc="Scientific measurement of idle power & efficiency" }
         @{ Cmd="dashboard"; Desc="Generate and launch the interactive web dashboard" }
         @{ Cmd="battery "; Desc="Apply battery-saver optimization profile" }
         @{ Cmd="gaming  "; Desc="Apply gaming performance profile" }
@@ -174,34 +182,35 @@ function Invoke-Analyze {
     Write-Host ""
 
     if (Test-Python) {
+        $py = Get-PythonCommand
         Write-Working "Running battery analyzer..."
-        $batteryOut = python "$AnalyzersDir\battery.py" --report-dir "$ReportsDir" 2>&1
+        $batteryOut = & $py "$AnalyzersDir\battery.py" --report-dir "$ReportsDir" 2>&1
         $batteryOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Gray }
         Write-Host ""
 
         Write-Working "Running CPU analyzer..."
-        $cpuOut = python "$AnalyzersDir\cpu.py" 2>&1
+        $cpuOut = & $py "$AnalyzersDir\cpu.py" 2>&1
         $cpuOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Gray }
         Write-Host ""
 
         Write-Working "Running services analyzer..."
-        $svcOut = python "$AnalyzersDir\services.py" 2>&1
+        $svcOut = & $py "$AnalyzersDir\services.py" 2>&1
         $svcOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Gray }
         Write-Host ""
 
         Write-Working "Running GPU analyzer..."
-        $gpuOut = python "$AnalyzersDir\gpu_residency.py" 2>&1
+        $gpuOut = & $py "$AnalyzersDir\gpu_residency.py" 2>&1
         $gpuOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Gray }
         Write-Host ""
 
         Write-Working "Running dependencies analyzer..."
-        $depsOut = python "$AnalyzersDir\dependencies.py" 2>&1
+        $depsOut = & $py "$AnalyzersDir\dependencies.py" 2>&1
         $depsOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Gray }
         Write-Host ""
 
         Write-Host "  ─────────────────────────────────────────────────────────────────" -ForegroundColor DarkGray
         Write-Working "Running Advanced AI Telemetry & Recommendation Engine..."
-        $telOut = python "$Root\core\telemetry.py" "$Root" 2>&1
+        $telOut = & $py "$Root\core\telemetry.py" "$Root" 2>&1
         $telOut | ForEach-Object { Write-Host "     $_" -ForegroundColor Cyan }
         Write-Host ""
     } else {
@@ -230,6 +239,17 @@ function Invoke-Analyze {
     }
 }
 
+# ─── Command: benchmark ───────────────────────────────────────────────────────
+function Invoke-Benchmark {
+    Write-Header "Performance & Efficiency Benchmark"
+    if (Test-Python) {
+        $py = Get-PythonCommand
+        & $py "$Root\core\benchmark.py"
+    } else {
+        Write-Warn "Python is required for benchmarking."
+    }
+}
+
 # ─── Command: profile dispatcher ──────────────────────────────────────────────
 function Invoke-Profile([string]$ProfileName) {
     Write-Header "$ProfileName Profile"
@@ -247,7 +267,8 @@ function Invoke-Profile([string]$ProfileName) {
         Write-Working "Using YAML Configuration Engine..."
         $argsList = @($yamlPath, "--root", $Root)
         if ($Apply) { $argsList += "--apply" }
-        python "$Root\core\engine.py" @argsList
+        $py = Get-PythonCommand
+        & $py "$Root\core\engine.py" @argsList
     } else {
         $script = Join-Path $ProfilesDir "$ProfileName.ps1"
         if (!(Test-Path $script)) {
@@ -292,7 +313,8 @@ function Invoke-Restore {
 function Invoke-Dashboard {
     Write-Header "Interactive Observability Dashboard"
     if (Test-Python) {
-        python "$Root\core\dashboard.py" "$Root"
+        $py = Get-PythonCommand
+        & $py "$Root\core\dashboard.py" "$Root"
     } else {
         Write-Warn "Python is required to generate the dashboard."
     }
@@ -301,17 +323,24 @@ function Invoke-Dashboard {
 # ─── Main ─────────────────────────────────────────────────────────────────────
 Write-Banner
 
-switch ($Command) {
-    "analyze" { Invoke-Analyze }
-    "dashboard" { Invoke-Dashboard }
-    "battery" { Invoke-Profile "battery" }
-    "gaming"  { Invoke-Profile "gaming" }
-    "dev"     { Invoke-Profile "developer" }
-    "silent"  { Invoke-Profile "silent" }
-    "vendor"  { Invoke-Vendor }
-    "restore" { Invoke-Restore }
-    "help"    { Invoke-Help }
-    default   { Invoke-Help }
+try {
+    switch ($Command) {
+        "analyze" { Invoke-Analyze }
+        "benchmark" { Invoke-Benchmark }
+        "dashboard" { Invoke-Dashboard }
+        "battery" { Invoke-Profile "battery" }
+        "gaming"  { Invoke-Profile "gaming" }
+        "dev"     { Invoke-Profile "developer" }
+        "silent"  { Invoke-Profile "silent" }
+        "vendor"  { Invoke-Vendor }
+        "restore" { Invoke-Restore }
+        "help"    { Invoke-Help }
+        default   { Invoke-Help }
+    }
+} catch {
+    Write-Warn "FATAL ERROR: $($_.Exception.Message)"
+    Write-Info "Please check reports/changes.log for details or report this issue on GitHub."
+    exit 1
 }
 
 Write-Host ""

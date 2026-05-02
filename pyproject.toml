@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "powertune"
+version = "1.0.0"
+authors = [
+  { name="Sarvadnya", email="sarvadnya07@example.com" },
+]
+description = "Evidence-Driven Systems Observability & Power Intelligence Platform for Windows"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+]
+dependencies = [
+    "PyYAML>=6.0",
+    "beautifulsoup4>=4.12.0",
+    "lxml>=4.9.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Sarvadnya07/powertune"
+"Bug Tracker" = "https://github.com/Sarvadnya07/powertune/issues"

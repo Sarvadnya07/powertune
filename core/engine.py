@@ -103,14 +103,11 @@ class ServiceDisableTweak(BaseTweak):
     def execute(self, apply_changes):
         if not re.match(r'^[a-zA-Z0-9.\-_]+$', self.target):
             if self.logger: self.logger.log(f"Disable service {self.target}", "Blocked: Injection attempt", "Critical", "")
-            print(f"     [!] SECURITY VIOLATION: Invalid service name format '{self.target}'. Command injection blocked.")
-            sys.exit(1)
+            raise SecurityViolationError(f"Invalid service name format '{self.target}'. Command injection blocked.")
             
         if self.target.lower() in CRITICAL_SERVICES_BLOCKLIST:
             if self.logger: self.logger.log(f"Disable service {self.target}", "Blocked: Critical service", "Critical", "")
-            print(f"     [!] SECURITY VIOLATION: Blocked attempt to disable critical service '{self.target}'.")
-            print("         See docs/SAFETY_POLICY.md for rules. Execution halted.")
-            sys.exit(1)
+            raise SecurityViolationError(f"Blocked attempt to disable critical service '{self.target}'. See docs/SAFETY_POLICY.md for rules.")
             
         if apply_changes:
             subprocess.run(["powershell", "-Command", f"Stop-Service -Name {self.target} -Force -ErrorAction SilentlyContinue"], timeout=10.0, check=True)
@@ -128,17 +125,34 @@ TWEAK_REGISTRY = {
     'service_disable': ServiceDisableTweak
 }
 
+class PowerTuneError(Exception):
+    """Base class for all PowerTune exceptions."""
+    pass
+
+class SecurityViolationError(PowerTuneError):
+    """Raised when an optimization profile violates the Intent Firewall."""
+    pass
+
+class ProfileNotFoundError(PowerTuneError):
+    """Raised when a specified profile YAML cannot be found."""
+    pass
+
+class EngineInitializationError(PowerTuneError):
+    """Raised when a core dependency (like PyYAML) is missing."""
+    pass
+
 def execute_profile(yaml_path, apply_changes=False, root_dir="."):
     if not yaml:
-        print("     [!] PyYAML is not installed. Run 'pip install pyyaml'.")
-        return
+        raise EngineInitializationError("PyYAML is not installed. Run 'pip install pyyaml'.")
     
     if not os.path.exists(yaml_path):
-        print(f"     [!] Profile not found: {yaml_path}")
-        return
+        raise ProfileNotFoundError(f"Profile not found: {yaml_path}")
 
     with open(yaml_path, 'r', encoding='utf-8') as f:
-        profile = yaml.safe_load(f)
+        try:
+            profile = yaml.safe_load(f)
+        except Exception as e:
+            raise PowerTuneError(f"Failed to parse YAML: {e}")
 
     print(f"     [*] Configuring Profile: {profile.get('profile', 'Unknown').upper()}...")
     print(f"         {profile.get('description', '')}")
@@ -165,6 +179,7 @@ def execute_profile(yaml_path, apply_changes=False, root_dir="."):
             if logger: logger.log("Atomic Rollback Triggered", "Failed Execution", "High", str(e))
             run_powershell(os.path.join(root_dir, "rollback", "restore.ps1"), ["-Apply"])
             sys.exit(1)
+        raise e
 
     if apply_changes:
         print("     [+] Applied Profile successfully.")

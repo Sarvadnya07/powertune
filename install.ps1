@@ -28,11 +28,20 @@ if (-not $py) {
 }
 Write-Host "      Found: $($py.Source)" -ForegroundColor Gray
 
-# 3. Install Dependencies
-Write-Host "  [*] Installing Python dependencies..." -ForegroundColor White
-pip install -r requirements.txt
+# 3. Setup Virtual Environment
+Write-Host "  [*] Setting up Python virtual environment (.venv)..." -ForegroundColor White
+if (-not (Test-Path ".venv")) {
+    python -m venv .venv
+}
+
+# Use the venv's python/pip
+$venvPath = Join-Path $PSScriptRoot ".venv"
+$pip = Join-Path $venvPath "Scripts\pip.exe"
+
+Write-Host "  [*] Installing Python dependencies in venv..." -ForegroundColor White
+& $pip install -r requirements.txt
 if ($LASTEXITCODE -eq 0) {
-    Write-Host "      Dependencies installed successfully." -ForegroundColor Green
+    Write-Host "      Dependencies installed successfully in .venv." -ForegroundColor Green
 } else {
     Write-Host "      Failed to install dependencies." -ForegroundColor Red
     exit 1
