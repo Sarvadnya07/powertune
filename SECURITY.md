@@ -1,31 +1,34 @@
-# Security Policy
+﻿# SECURITY
 
-## Supported Versions
-PowerTune is a community-driven platform. We currently provide security updates for the following versions:
+## Security Architecture
+PowerTune uses defensive defaults to reduce system risk during optimization.
 
-| Version | Supported |
-| :--- | :--- |
-| 1.0.x | ✅ Yes |
-| < 1.0.0 | ❌ No |
+## Core Controls
+- Dry-run default for all profile operations.
+- Explicit elevation required for mutable `-Apply` operations.
+- Critical service blocklist in engine (`CRITICAL_SERVICES_BLOCKLIST`).
+- Service target regex validation before execution.
+- Snapshot-before-change rollback model.
 
-## Reporting a Vulnerability
-We take the security of your system seriously. If you discover a security vulnerability (e.g., a bypass of the Intent Firewall, a potential command injection, or a privilege escalation vector), please do not open a public Issue.
+## Sensitive Configuration Handling
+- No secrets are required for core runtime.
+- Telemetry and change logs are local files under `reports/`.
+- Contributors should avoid storing machine-identifying details in committed artifacts.
 
-Instead, please send a detailed report to: **security@powertune.io** (Placeholder)
+## Threat Considerations
+- Malicious profile attempts to disable core services.
+- Command injection via service-name payloads.
+- Incomplete rollback under partial-apply failure.
 
-### What to include:
-- A detailed description of the vulnerability.
-- A proof-of-concept (PoC) script or set of steps to reproduce.
-- The potential impact (e.g., "Allows disabling Windows Defender via modified YAML").
+## Hardening Recommendations
+- Enforce strict profile signature checks.
+- Add profile schema validation and policy allowlists.
+- Add CI tests for blocklist behavior and rollback integrity.
+- Add static analysis for PowerShell scripts in mandatory CI gate.
 
-## Our Process
-1.  **Acknowledgment**: We will acknowledge your report within 48 hours.
-2.  **Investigation**: Our core team will validate the vulnerability.
-3.  **Resolution**: We aim to provide a patch or mitigation within 10 business days.
-4.  **Disclosure**: We will coordinate a public disclosure after the patch is released.
-
-## The Intent Firewall
-PowerTune utilizes an "Intent Firewall" to block the modification of critical system services. Any discovered method to bypass this firewall is considered a **High Severity** security vulnerability.
-
----
-*Thank you for helping keep PowerTune safe.*
+## Responsible Disclosure
+Report security issues privately before public disclosure. Provide:
+- reproduction steps
+- affected commands/profiles
+- observed/expected behavior
+- mitigation suggestions if available

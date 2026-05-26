@@ -1,188 +1,126 @@
-# 🔋 PowerTune
+﻿# PowerTune
 
-### The Evidence-Driven Systems Observability & Power Intelligence Platform for Windows
+**Evidence-driven Windows power diagnostics, safe profile tuning, and reversible system optimization**
 
-[![CI/CD](https://github.com/Sarvadnya07/powertune/actions/workflows/ci.yml/badge.svg)](https://github.com/Sarvadnya07/powertune/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
-[![PowerShell](https://img.shields.io/badge/PowerShell-5.1+-blue.svg)](https://microsoft.com/PowerShell)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+[![CI](https://github.com/Sarvadnya07/powertune/actions/workflows/ci.yml/badge.svg)](https://github.com/Sarvadnya07/powertune/actions/workflows/ci.yml)
+[![Lint](https://github.com/Sarvadnya07/powertune/actions/workflows/lint.yml/badge.svg)](https://github.com/Sarvadnya07/powertune/actions/workflows/lint.yml)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-3776AB.svg)](https://www.python.org/)
+[![PowerShell](https://img.shields.io/badge/powershell-5.1%2B-5391FE.svg)](https://learn.microsoft.com/powershell/)
 
----
+## Overview
+PowerTune is a Windows-first optimization platform that combines telemetry analyzers, a YAML profile engine, rollback snapshots, and safety guardrails into one operator-friendly toolkit.
 
-## 📖 Overview
+## Why This Project Exists
+Classic tweak scripts are fast but risky. PowerTune is designed to make optimization measurable, reversible, and auditable.
 
-**PowerTune** is not another "optimization script" or a collection of registry hacks. It is a high-performance **Systems Observability & Power Intelligence Platform** designed for Windows. 
+## Key Features
+- Concurrent telemetry analyzers (GPU, sleep states, timers, thermal, attribution)
+- YAML-driven tuning profiles with risk + rationale metadata
+- Intent firewall for critical-service protection
+- Atomic snapshot + restore workflow before mutable operations
+- Plugin discovery for custom telemetry modules
+- SQLite event history for trend inspection
 
-Built for Systems Engineers, Developers, and Performance Enthusiasts, PowerTune replaces dangerous, opaque scripts with a **transparent, declarative, and evidence-driven** framework. It provides deep visibility into hardware behavior—from GPU residency and CPU C-states to timer resolution abuse—and applies optimizations through a **Zero-Trust Intent Firewall**.
+## Screenshots / Demo
+- Launcher: `./cli/launcher.bat`
+- CLI help: `./cli/powertune.ps1 help`
+- Dashboard command: `./cli/powertune.ps1 dashboard`
 
-### Why PowerTune?
-Most "windows optimizers" are black boxes that can break OS stability. PowerTune is different:
-- **Evidence-First**: Every optimization is justified by measurable telemetry.
-- **Zero-Trust**: Hardcoded safeguards prevent modification of critical OS components.
-- **Atomic Safety**: Granular hexadecimal snapshots allow for instant, 100% reversible rollbacks.
-
----
-
-## ✨ Core Features
-
-| Feature | Description |
-| :--- | :--- |
-| 🛡️ **Intent Firewall** | A security-first sandbox that blocks changes to critical services (Defender, RPC, etc.). |
-| 🧩 **Declarative DSL** | Define system states in type-safe YAML profiles instead of imperative scripts. |
-| 📉 **Deep Observability** | Python-based analyzers for GPU residency, WMI battery wear, and platform timers. |
-| 🔁 **Atomic Rollbacks** | Captures CPU P-States and registry snapshots before execution for 1:1 restoration. |
-| 📊 **Unified Telemetry** | High-fidelity JSON output suitable for AI-driven analytics and enterprise monitoring. |
-| ⚡ **Benchmarking** | Integrated validation to prove wattage reduction and latency improvements. |
-
----
-
-## 🖼️ Dashboard & Analytics
-
-![PowerTune Dashboard Mockup](https://raw.githubusercontent.com/Sarvadnya07/powertune/main/docs/assets/dashboard_mockup.png)
-*Note: The CLI provides a rich, interactive dashboard for real-time systems diagnostics.*
-
----
-
-## 🏗️ Architecture
-
-PowerTune uses a decoupled, strict boundary execution model to ensure stability and security.
-
+## Architecture Overview
 ```mermaid
-graph TD
-    User[User / Administrator] --> |CLI Commands| PSRouter[PowerShell Router]
-    PSRouter --> |Triggers| Analyzers[Python Diagnostic Suite]
-    PSRouter --> |Parses YAML| Engine[Python DSL Engine]
-    
-    subgraph "Safety Layer"
-        Engine --> |1. Snapshot| DB[(Atomic State Store)]
-        Engine --> |2. Validate| Firewall[Intent Firewall]
-    end
-    
-    Firewall --> |3. Execute| WinAPI[Win32 / PowerCfg API]
-    Analyzers --> |JSON Telemetry| Report[Diagnostic Reports]
+flowchart TD
+  A[User/Admin] --> B[PowerShell Router]
+  B --> C[Telemetry Pipeline]
+  B --> D[Profile Engine]
+  C --> E[Analyzers + Plugins]
+  C --> F[(SQLite Telemetry DB)]
+  D --> G[Snapshot]
+  D --> H[Validate / Firewall]
+  H --> I[PowerCfg + Service Ops]
+  D --> J[Restore on Failure]
 ```
 
----
+## Tech Stack
+- Python 3.10+: analyzers, engine, telemetry, persistence
+- PowerShell 5.1+: orchestration, install, rollback, OEM checks
+- YAML + JSON + SQLite: profiles, logs, and history
 
-## 🚀 Getting Started
+## Folder Structure
+```text
+powertune/
+|- analyzers/        |- cli/            |- core/
+|- docs/             |- plugins/        |- profiles/
+|- rollback/         |- tests/          |- vendor/
+|- install.ps1       |- build.ps1       `- powertune.py
+```
 
-### Prerequisites
-- **Windows 10/11**
-- **Python 3.10+** (Required for analyzers and engine)
-- **PowerShell 5.1+** (Admin privileges required for applying optimizations)
-
-### Installation
-
+## Installation Guide
 ```powershell
-# Clone the repository
 git clone https://github.com/Sarvadnya07/powertune.git
 cd powertune
-
-# Run the automated installer (Sets up environment and PATH)
 .\install.ps1
 ```
 
----
+## Environment Variables Setup
+No mandatory env vars. Optional: add `cli` path to User `PATH` for global command usage.
 
-## 💻 Usage
+## Configuration Guide
+Profiles live in `profiles/*.yaml`. Supported tweak IDs in `core/engine.py`:
+- `cpu_min_state`
+- `cpu_max_state`
+- `active_scheme`
+- `service_disable`
 
-PowerTune is built around a single entry point: `powertune.ps1`.
-
-### 1. Run Diagnostics (Read-Only)
-Analyze the system without making any changes. This checks for GPU wakeups, timer resolution abuse, and battery health.
+## Usage Instructions
 ```powershell
-powertune analyze
+.\cli\powertune.ps1 analyze
+.\cli\powertune.ps1 battery
+.\cli\powertune.ps1 battery -Apply
+.\cli\powertune.ps1 restore -Apply
+python powertune.py analyze
 ```
 
-### 2. Apply an Optimization Profile
-Apply a predefined configuration. This generates an atomic rollback snapshot automatically.
+## API Documentation Overview
+PowerTune exposes internal Python APIs, not HTTP endpoints. See `API_GUIDE.md`.
+
+## Authentication Flow
+No identity auth layer. Privilege boundary is local admin elevation for `-Apply` operations.
+
+## Performance Optimizations
+- Analyzer fan-out using `ThreadPoolExecutor`
+- Targeted subprocess timeouts to avoid hangs
+- Local persistence to reduce repeated investigation cost
+
+## Security Measures
+- Dry-run by default
+- Blocklist for critical Windows services
+- Service-name validation to reduce injection risk
+- Pre-change snapshot + explicit rollback path
+
+## Scalability Considerations
+- Plugin model supports incremental analyzer growth
+- SQLite is suitable for local-node scale; easy to replace with external store later
+- YAML DSL allows controlled optimization-policy evolution
+
+## Testing Instructions
 ```powershell
-powertune battery -Apply
+pytest -q
 ```
+Status on 2026-05-27 local run: `7 passed, 2 failed` (tests expect `SystemExit` while engine raises `SecurityViolationError`).
 
-### 3. Emergency Restore
-Instantly revert all changes to the exact state captured before the last optimization.
-```powershell
-powertune restore -Apply
-```
+## Deployment Guide
+See `DEPLOYMENT.md` for endpoint rollout, CI/CD, and release hardening guidance.
 
-### 4. Interactive Dashboard
-Launch the full interactive TUI dashboard.
-```powershell
-.\cli\launcher.bat
-```
+## Contributing Guidelines
+See `CONTRIBUTING.md`.
 
----
+## Roadmap
+See `FUTURE_SCOPE.md` and `ROADMAP.md`.
 
-## 🔌 Writing Profiles (DSL)
+## License
+MIT.
 
-Optimizations are defined in `profiles/*.yaml`. PowerTune enforces rationale for every tweak.
-
-```yaml
-profile: "developer"
-description: "High CPU compile speed, aggressive background suspension."
-tweaks:
-  - id: cpu_min_state
-    value: 85
-    risk: Low
-    why: "Prevents CPU from entering deep C-states during frequent compilation workloads."
-    
-  - id: service_disable
-    target: "SysMain"
-    risk: Medium
-    why: "Reduces disk I/O and background indexing during active development."
-```
-
----
-
-## 📂 Project Structure
-
-```text
-powertune/
-├── analyzers/          # Python diagnostic modules (CPU, GPU, Battery, etc.)
-├── cli/                # PowerShell command router and launchers
-├── core/               # Python DSL engine and telemetry logic
-├── profiles/           # Declarative YAML optimization profiles
-├── rollback/           # Hexadecimal state snapshots and restore scripts
-├── tests/              # Security and functional test suite
-├── docs/               # Technical documentation and architecture
-└── reports/            # Generated JSON telemetry and change logs
-```
-
----
-
-## 🛠️ Tech Stack
-
-- **Logic**: Python 3.10+ (using `subprocess`, `yaml`, `wmi`)
-- **Orchestration**: PowerShell (Native Windows automation)
-- **Data Format**: YAML (Profiles), JSON (Telemetry)
-- **APIs**: Win32 API, `powercfg`, WMI, `nvidia-smi`
-
----
-
-## 🤝 Contributing
-
-We enforce a **Zero-Placebo Policy**. All pull requests that introduce new optimizations must include benchmark data proving a reduction in power consumption or latency.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
-
----
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
-
-## 👤 Author
-
-**Sarvadnya** - [@Sarvadnya07](https://github.com/Sarvadnya07)
-
-Project Link: [https://github.com/Sarvadnya07/powertune](https://github.com/Sarvadnya07)
+## Author / Credits
+- Sarvadnya
+- Open-source contributors

@@ -1,0 +1,1601 @@
+﻿{
+    "Timestamp":  "2026-05-22T16:23:42",
+    "Profile":  "battery",
+    "Services":  [
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "AarSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "ADPSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "ALG",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "AMD Crash Defender Service",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "AMD External Events Utility",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "AppIDSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Appinfo",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "AppReadiness",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "AppXSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "ApxSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ArmouryCrateControlInterface",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ArmouryCrateService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "asus",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "AsusAppService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "AsusCertService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "asusm",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "AsusMultiAntennaSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ASUSOptimization",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "AsusPTPService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ASUSSoftwareManager",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ASUSSwitch",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ASUSSystemAnalysis",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ASUSSystemDiagnosis",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "AudioEndpointBuilder",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Audiosrv",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "autotimesvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "AxInstSV",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "AzureAttestService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "BcastDVRUserService_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "BDESVC",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "BFE",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "BITS",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "BluetoothUserService_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "brave",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "BraveElevationService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "bravem",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "BrokerInfrastructure",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "BTAGService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "BthAvctpSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "bthserv",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "camsvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "CaptureService_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "cbdhsvc_f79d1",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "CDPSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "CDPUserSvc_f79d1",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "CertPropSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ClickToRunSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "ClipSVC",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "CloudBackupRestoreSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "COMSysApp",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "ConsentUxUserSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "CoreMessagingRegistrar",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "CoworkVMService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "CredentialEnrollmentManagerUserSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "CryptSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DcomLaunch",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "dcsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "defragsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "DeviceAssociationBrokerSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DeviceAssociationService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DeviceInstall",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "DevicePickerUserSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DevicesFlowUserSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DevQueryBroker",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Dhcp",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "diagsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "DiagTrack",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DispBrokerDesktopSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DisplayEnhancementService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "DmEnrollmentSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "dmwappushservice",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Dnscache",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DolbyDAXAPI",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "DoSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "dot3svc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DPS",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "DsmSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "DsSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "DusmSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "EapHost",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "edgeupdate",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "edgeupdatem",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "EFS",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "embeddedmode",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "EntAppSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "EpSecuritySupport",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "EventLog",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "EventSystem",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "fdPHost",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "FDResPub",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "fhsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "FileSyncHelper",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "FontCache",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "FontCache3.0.0.0",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "FrameServer",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "FrameServerMonitor",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "FvSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "GameInputRedistService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "GameInputSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "GameSDK Service",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "GamingServices",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "GamingServicesNet",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "genspark",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "GensparkElevationService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "gensparkm",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "GoogleChromeElevationService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "GoogleUpdaterInternalService149.0.7814.0",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "GoogleUpdaterService149.0.7814.0",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "gpsvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "GraphicsPerfSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "hidserv",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "hns",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "hpatchmon",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "HvHost",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "icssvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "IKEEXT",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "InstallService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "InventorySvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "iphlpsvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "IpxlatCfgSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "KeyIso",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "KtmRm",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "LanmanServer",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "LanmanWorkstation",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "lfsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "LicenseManager",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "LightingService",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "lltdsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "lmhosts",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "LocalKdc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "LSM",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "LxpSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MapsBroker",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "McmSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "McpManagementService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "MDCoreSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MessagingService_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MicrosoftCopilotElevationService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MicrosoftEdgeElevationService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "midisrv",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MozillaMaintenance",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "mpssvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MSDTC",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MSiSCSI",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "msiserver",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MSSQL$MSSQL",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MSSQL$SQLEXPRESS",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "MSSQL$SQLEXPRESS01",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "NaturalAuthentication",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "NcaSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "NcbService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "NcdAutoSetup",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "Netlogon",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "Netman",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "netprofm",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "NetSetupSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "NetTcpPortSharing",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "NgcCtnrSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "NgcSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "NlaSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "NPSMSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "nsi",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "nvagent",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "NvContainerLocalSystem",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "NVDisplay.ContainerLocalSystem",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "OneDrive Updater Service",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "OneSyncSvc_f79d1",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "P9RdrService_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "PcaSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PenService_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "perceptionsimulation",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PerfHost",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PhoneSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PimIndexMaintenanceSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "pla",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "PlugPlay",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "PolicyAgent",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Power",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PrintDeviceConfigurationService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PrintNotify",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PrintScanBrokerService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PrintWorkflowUserSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ProfSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "PushToInstall",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "QWAVE",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "RasAuto",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "RasMan",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "refsdedupsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "RemoteAccess",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "RemoteRegistry",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "RetailDemo",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "RmSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ROG Live Service",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "RpcEptMapper",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "RpcLocator",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "RpcSs",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "RtkAudioUniversalService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "SamSs",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SCardSvr",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "ScDeviceEnum",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Schedule",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SCPolicySvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SDRSVC",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "seclogon",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "SecurityHealthService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SEMgrSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "SENS",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SensorDataService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SensorService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SensrSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SessionEnv",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "SharedAccess",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ShellHWDetection",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "shpamsvc",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "smphost",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SmsRouter",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SNMPTrap",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "Spooler",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "sppsvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SQLAgent$MSSQL",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SQLAgent$SQLEXPRESS",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SQLAgent$SQLEXPRESS01",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SQLBrowser",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SQLTELEMETRY$MSSQL",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SQLTELEMETRY$SQLEXPRESS",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SQLTELEMETRY$SQLEXPRESS01",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SQLWriter",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "SSDPSRV",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "ssh-agent",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "SstpSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "StateRepository",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "Steam Client Service",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "StiSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "StorSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "svsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "swprv",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "SysMain",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "SystemEventsBroker",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "TapiSrv",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "TermService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "TextInputManagementService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Themes",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "TieringEngineService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "TimeBrokerSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "TokenBroker",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "TrkWks",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "TroubleshootingSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "TrustedInstaller",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "tzautoupdate",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "UdkUserSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "UmRdpService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "UnistoreSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "upnphost",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "UrbanVPNServiceInteractive",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "UrbanVPNUpdater",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "UserDataSvc_f79d1",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "UserManager",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "UsoSvc",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "VaultSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vds",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "vmcompute",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vmicguestinterface",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vmicheartbeat",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vmickvpexchange",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vmicrdv",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vmicshutdown",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vmictimesync",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vmicvmsession",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "vmicvss",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "VSS",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "W32Time",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WaaSMedicSvc",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WalletService",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WarpJITSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "wbengine",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WbioSrvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Wcmsvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "wcncsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WdiServiceHost",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WdiSystemHost",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WdNisSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WebClient",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "webthreatdefsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "webthreatdefusersvc_f79d1",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "Wecsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WEPHOSTSVC",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "wercplsupport",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WerSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WFDSConMgrSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "whesvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WiaRpc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WinDefend",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WinHttpAutoProxySvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "Winmgmt",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WinRM",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "wisvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WlanSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "wlidsvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "wlpasvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WManSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "wmiApSrv",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WMPNetworkSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "workfolderssvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WpcMonSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WPDBusEnum",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WpnService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WpnUserService_f79d1",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WSAIFabricSvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "wscsvc",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WSearch",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Running",
+                         "Name":  "WSLService",
+                         "StartType":  "Automatic"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "wuauserv",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "wuqisvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "WwanSvc",
+                         "StartType":  "Manual"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "XblAuthManager",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "XblGameSave",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "XboxGipSvc",
+                         "StartType":  "Disabled"
+                     },
+                     {
+                         "Status":  "Stopped",
+                         "Name":  "XboxNetApiSvc",
+                         "StartType":  "Disabled"
+                     }
+                 ],
+    "CpuMaxAc":  100,
+    "ActiveScheme":  "64a64f24-65b9-4b56-befd-5ec1eaced9b3",
+    "CpuMinAc":  80,
+    "CpuMinDc":  5,
+    "CpuMaxDc":  100
+}

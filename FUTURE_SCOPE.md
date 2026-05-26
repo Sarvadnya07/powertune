@@ -1,69 +1,33 @@
-# 🚀 Future Scope: PowerTune Evolution
+﻿# FUTURE_SCOPE
 
-This document outlines the strategic vision and roadmap for PowerTune, evolving it from a powerful CLI toolkit into an enterprise-grade systems engineering and observability ecosystem.
+## Short-Term (0-3 months)
+- Align failing security tests with current exception contract (`SecurityViolationError`).
+- Add schema validation for profile YAML.
+- Add dashboard assets/screenshots and report export presets.
+- Add deterministic benchmark harness for before/after profile comparison.
 
----
+## Mid-Term (3-9 months)
+- Signed profile manifests with strict hash enforcement.
+- Policy engine for allow/deny tweak classes by environment (personal/workstation/lab).
+- Fleet mode for applying profile policy across multiple Windows endpoints.
+- Richer anomaly correlation across CPU, timer, and wake-source events.
 
-## 🟢 Short-Term Improvements (Q3 2026)
+## Long-Term (9-18 months)
+- Multi-platform abstraction layer for Linux parity (already hinted in docs).
+- Optional remote telemetry sink (OTLP/Timeseries DB).
+- Recommendation ranking with confidence scores and automated experiment loops.
 
-### 📦 Dependency & Distribution
-- **Formal Packaging**: Add `requirements.txt`, `pyproject.toml`, and `setup.py` for standard Python distribution.
-- **Standalone Binaries**: Compile the Python engine into single-file executables using `Nuitka` to remove the Python runtime requirement for end-users.
+## Scalability Evolution
+- Move from local SQLite to pluggable persistence adapters.
+- Add analyzer job queue and controlled concurrency for large plugin sets.
+- Add release-channel config (stable/canary) for profiles and analyzers.
 
-### 🔍 Enhanced Diagnostics
-- **ETW Tracing**: Implement hooks into Event Tracing for Windows to capture DPC latency spikes and identify "interrupt storms" causing audio micro-stutters.
-- **WMI Real-Time Polling**: A daemon mode for live package power (Watts) and thermal sensor streaming.
+## AI / Automation Opportunities
+- Automated root-cause graph generation from telemetry events.
+- Drift detection between expected and observed power-state outcomes.
+- CI bot comments that validate optimization claims against benchmark artifacts.
 
-### 🎨 CLI UX 2.0
-- **Rich Integration**: Replace standard terminal outputs with `Rich` library components (styled tables, syntax-highlighted JSON, and animated progress bars).
-
----
-
-## 🟡 Mid-Term Enhancements (Q4 2026 - Q1 2027)
-
-### 🤖 Automation & Intelligence
-- **Auto-Switcher Daemon**: A lightweight background service that triggers profiles based on system events (e.g., switching to `battery.yaml` when unplugged, or `gaming.yaml` when a GPU-intensive process starts).
-- **Rule-Based Recommendations**: Analyze telemetry logs and suggest specific tweaks (e.g., "Chrome is causing 40% of CPU wakeups. Consider applying the Browser-Safe profile").
-
-### 🏗️ Hardware Abstraction
-- **Cross-Vendor Modules**: Full implementation of Lenovo, Dell, and HP specific modules to pause vendor telemetry and bloatware logic dynamically.
-
----
-
-## 🔴 Long-Term Vision (2027+)
-
-### 🖥️ Desktop GUI (The "PowerTune Hub")
-- **Tauri + SvelteKit Dashboard**: A premium, dark-mode desktop application for users who prefer a visual interface.
-- **Visual State Graph**: Real-time visualization of CPU C-states, GPU residency, and hardware aging curves.
-
-### 🌐 Community & Cloud
-- **Centralized Profile Registry**: A community-driven hub for sharing, rating, and downloading hardware-specific YAML profiles (e.g., "Optimized Profile for ROG Zephyrus G14").
-
----
-
-## 🛡️ Security & Hardening
-
-- **Cryptographic Signatures**: Ensure the engine only executes YAML profiles signed by an approved authority.
-- **JIT Elevation**: Implement Just-In-Time privilege escalation to run the analysis layer with standard user privileges, only elevating for critical registry/service modifications.
-- **Anti-Tamper Monitoring**: Detect if third-party software attempts to revert PowerTune optimizations or modify the Intent Firewall.
-
----
-
-## ⚡ Performance Optimizations
-
-- **Asynchronous Pipeline**: Refactor the diagnostic engine to use `asyncio`, dropping full system analysis time from ~3 seconds to <500ms.
-- **C-Level Core**: Re-implement performance-critical telemetry collectors in C++ or Rust for zero-overhead polling.
-
----
-
-## 📈 Scalability & Enterprise
-
-- **Fleet Analytics**: A centralized dashboard for monitoring power efficiency and hardware health across hundreds of enterprise laptops.
-- **Compliance Mode**: IT-enforced optimization policies that prevent end-users from disabling critical security services while allowing performance tweaks.
-
----
-
-## 🔄 DevOps & CI-CD
-
-- **Automated Security Audit**: CI pipeline that runs `tests/test_security.py` on every PR to ensure the Intent Firewall is never compromised.
-- **Benchmarking Sandbox**: A dedicated CI runner that measures the performance impact of new tweaks before they are merged into the `main` branch.
+## DevOps Evolution
+- Signed releases and supply-chain attestation.
+- Automated versioning + release notes generation.
+- Matrix testing across more Windows editions and hardware classes.
