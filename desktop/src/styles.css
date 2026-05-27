@@ -37,7 +37,7 @@ select {
 }
 
 .panel {
-  @apply border border-line bg-panel/88 shadow-panel;
+  @apply border border-line bg-panel/[0.88] shadow-panel;
 }
 
 .fine-grid {

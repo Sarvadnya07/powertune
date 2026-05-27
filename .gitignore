@@ -1,5 +1,6 @@
 # Local reports and generated HTML
 *.html
+!desktop/index.html
 reports/
 *.etl
 
@@ -30,6 +31,9 @@ wheels/
 .installed.cfg
 *.egg
 
+# JavaScript / Desktop UI
+node_modules/
+
 # Virtual Environment
 venv/
 ENV/
@@ -43,4 +47,3 @@ ENV/
 # OS
 Thumbs.db
 desktop.ini
-
