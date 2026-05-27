@@ -1,34 +1,41 @@
-﻿# SECURITY
+# SECURITY
+
+PowerTune can modify system state. This document describes the security posture and the controls that reduce risk.
 
 ## Security Architecture
-PowerTune uses defensive defaults to reduce system risk during optimization.
+- Operator boundary: `cli/powertune.ps1` is the primary interface and enforces admin checks for `-Apply`.
+- Execution boundary: `core/engine.py` implements the tweak registry and the intent firewall.
+- Recovery boundary: rollback scripts snapshot and restore state (`rollback/snapshot.ps1`, `rollback/restore.ps1`).
 
-## Core Controls
-- Dry-run default for all profile operations.
-- Explicit elevation required for mutable `-Apply` operations.
-- Critical service blocklist in engine (`CRITICAL_SERVICES_BLOCKLIST`).
-- Service target regex validation before execution.
-- Snapshot-before-change rollback model.
+## Core Controls (Current Implementation)
+- Dry-run by default.
+- `-Apply` requires local admin elevation.
+- Service-name input validation (regex) before any service operations.
+- Critical service denylist (`CRITICAL_SERVICES_BLOCKLIST` in `core/engine.py`).
+- Snapshot-before-change in apply mode; restore path available via `restore`.
 
-## Sensitive Configuration Handling
-- No secrets are required for core runtime.
-- Telemetry and change logs are local files under `reports/`.
-- Contributors should avoid storing machine-identifying details in committed artifacts.
+## Data Handling
+- No secrets are required to run PowerTune.
+- Logs and telemetry are local by default:
+  - `reports/changes.log` (JSONL)
+  - `reports/db/telemetry_history.db` (SQLite)
 
-## Threat Considerations
-- Malicious profile attempts to disable core services.
-- Command injection via service-name payloads.
-- Incomplete rollback under partial-apply failure.
+## Threat Model (Practical)
+- Malicious or unsafe profiles attempting to disable security services.
+- Command injection via tweak parameters (especially service names).
+- Partial application leaving the machine in an inconsistent state.
 
-## Hardening Recommendations
-- Enforce strict profile signature checks.
-- Add profile schema validation and policy allowlists.
-- Add CI tests for blocklist behavior and rollback integrity.
-- Add static analysis for PowerShell scripts in mandatory CI gate.
+## Hardening Roadmap
+- Strict profile signing (hash allowlist) with a managed “strict mode”.
+- Schema validation for profile YAML (required keys, allowed tweak IDs, value ranges).
+- Policy allowlists by environment (workstation vs managed endpoint).
+- CI tests that ensure denylist coverage cannot regress.
 
-## Responsible Disclosure
-Report security issues privately before public disclosure. Provide:
+## Reporting Vulnerabilities
+Prefer private disclosure via GitHub Security Advisories. Include:
+- affected version/commit
 - reproduction steps
-- affected commands/profiles
-- observed/expected behavior
-- mitigation suggestions if available
+- commands and profile used
+- expected vs observed behavior
+- rollback outcome
+

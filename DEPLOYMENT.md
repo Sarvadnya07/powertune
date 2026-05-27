@@ -1,30 +1,31 @@
-﻿# DEPLOYMENT
+# DEPLOYMENT
 
-## Deployment Model
-PowerTune is endpoint software for Windows systems, not a hosted backend service.
+PowerTune is endpoint software for Windows systems. It is not a hosted backend service.
+
+## Deployment Modes
+- Developer workstation: install via `install.ps1` and run locally.
+- Operator-managed endpoint: staged rollout using dry-run first, then controlled `-Apply`.
+- Portable binaries (optional): `build.ps1` compiles selected Python entrypoints using PyInstaller.
 
 ## Production Rollout Steps
-1. Validate code quality via CI (`ruff`, tests, PowerShell analyzer).
-2. Package dependencies or binaries (`build.ps1` optional).
-3. Roll out in dry-run mode first.
-4. Enable controlled `-Apply` usage for approved operators.
-5. Capture telemetry and rollback confidence before broad rollout.
-
-## Environment Setup
-- Ensure Python + PowerShell versions match documented baseline.
-- Pre-create restore strategy and snapshot retention policy.
+1. Validate build quality via CI (lint + tests).
+2. Run `analyze` on representative hardware and capture baseline telemetry artifacts.
+3. Apply profiles only under operator policy with snapshot verification.
+4. Validate restoration workflow periodically using recent snapshots.
+5. Collect and store artifacts for audit:
+   - `reports/changes.log`
+   - `reports/db/telemetry_history.db`
+   - `rollback/snapshots/*.json`
 
 ## CI/CD Recommendations
-- Keep dual workflows for lint and test gates.
-- Add release workflow for tags and packaged artifacts.
-- Gate merges on passing safety tests.
+- Require both workflows to pass:
+  - `.github/workflows/ci.yml`
+  - `.github/workflows/lint.yml`
+- Add a release workflow that publishes binaries on tag push.
+- Upload benchmark/telemetry artifacts as CI artifacts for PR review.
 
 ## Hosting Suggestions
-- Source hosting: GitHub.
-- Artifact hosting: GitHub Releases for packaged binaries.
+- Source: GitHub.
+- Artifacts: GitHub Releases (signed, versioned).
 - Optional telemetry archive: central share or object storage for fleet analytics.
 
-## Rollback Plan
-- Every apply path should create snapshots under `rollback/snapshots`.
-- Document operator procedure for emergency restore.
-- Periodically test restore flow on representative hardware.

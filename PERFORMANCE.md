@@ -1,25 +1,28 @@
-﻿# PERFORMANCE
+# PERFORMANCE
 
-## Current Optimizations
-- Concurrent analyzer execution (`ThreadPoolExecutor`) reduces total diagnostic latency.
-- Bounded subprocess timeouts prevent indefinite stalls.
-- Lightweight SQLite event persistence supports rapid historical queries.
+This document explains the performance posture of PowerTune itself (not only the optimizations it applies).
 
-## Bottlenecks Avoided
-- Analyzer fan-out avoids strict serial execution.
-- YAML profile logic avoids complex runtime state machines.
+## What PowerTune Optimizes Internally
+- Analyzer concurrency: telemetry collection runs multiple analyzers in parallel using `ThreadPoolExecutor` (`core/telemetry.py`).
+- Bounded execution: subprocess calls use timeouts to avoid indefinite hangs.
+- Local persistence: SQLite history prevents repeated “start from zero” investigations for recurring issues.
 
-## Known Performance Risks
-- Large plugin sets can inflate analyzer startup overhead.
-- Repeated shell invocations for each tweak may add latency on slower systems.
-- SQLite can become a bottleneck for high-frequency telemetry ingestion.
+## Primary Costs
+- Analyzer startup overhead (Python imports, subprocess calls).
+- Per-tweak subprocess calls in apply mode (`powercfg`, `Stop-Service`, etc.).
+- Plugin import and execution cost (unbounded without a budget today).
+
+## Known Bottlenecks
+- Large plugin sets can inflate telemetry runtime.
+- High-frequency ingestion would stress SQLite; current usage is best-effort event logging.
 
 ## Scaling Strategy
-- Add plugin scheduling limits and execution budgets.
-- Batch service/state reads to reduce command overhead.
-- Introduce optional remote telemetry backends for fleet scenarios.
+- Add plugin execution budgets and scheduling (max runtime, max concurrency).
+- Batch system queries where possible (reduce repeated shell calls).
+- Introduce optional external sinks for fleet scenarios while keeping local-first behavior.
 
-## Best Practices
-- Run benchmark mode before and after profile changes.
-- Keep plugin telemetry lean and deterministic.
-- Use profile changes with measurable intent and test evidence.
+## Operator Best Practices
+- Capture a baseline: run `analyze` and record the output.
+- Run benchmarks before and after profile changes (where supported).
+- Prefer small, explainable profile deltas over “mega profiles”.
+

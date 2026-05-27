@@ -1,39 +1,49 @@
-﻿# TESTING_GUIDE
+# TESTING_GUIDE
 
-## Test Strategy
-PowerTune testing prioritizes safety and behavior correctness over synthetic coverage metrics.
+Testing in PowerTune prioritizes safety and correctness of behavior under both dry-run and apply flows.
 
 ## Test Layers
-- Unit tests: parser and helper behavior.
-- Safety tests: engine validation, firewall, and dry-run stability.
-- Regression checks: profile execution paths and telemetry persistence.
+- Unit tests: parser/format handling and pure logic where possible.
+- Safety tests: intent firewall behavior, YAML parsing stability, dry-run non-destructiveness.
+- Regression checks: telemetry persistence behavior and restore logic assumptions.
 
 ## Run Tests
 ```powershell
 pytest -q
 ```
 
-## Current Observations (2026-05-27)
-- Result: 7 passed, 2 failed.
-- Failing files:
-  - `tests/test_engine.py`
-  - `tests/test_security.py`
-- Root cause: tests assert `SystemExit` while engine now raises `SecurityViolationError`.
+## Current Status (2026-05-27)
+- Local result: 7 passed, 2 failed.
+- Failures are expectation mismatches:
+  - `tests/test_engine.py` expects `SystemExit`, engine raises `SecurityViolationError`.
+  - `tests/test_security.py` expects `SystemExit`, engine raises `SecurityViolationError`.
 
-## Manual Testing
-- `./cli/powertune.ps1 analyze`
-- `./cli/powertune.ps1 battery`
-- `./cli/powertune.ps1 battery -Apply` (admin)
-- `./cli/powertune.ps1 restore -Apply` (admin)
+This is documented in `README.md` so contributors are not surprised by CI behavior.
 
-## Edge Cases to Cover
-- malformed YAML syntax
-- unsupported tweak IDs
-- blocked critical services
-- plugin import/runtime failure
-- restore behavior when snapshot list is empty
+## Manual Testing Runbook
+Read-only diagnostics:
+```powershell
+.\cli\powertune.ps1 analyze
+```
 
-## Future Automation
-- Add contract tests for plugin payload schema.
-- Add integration tests that mock `powercfg` and service operations.
-- Add CI artifact upload for benchmark and telemetry outputs.
+Dry-run profile:
+```powershell
+.\cli\powertune.ps1 battery
+```
+
+Apply profile (Administrator):
+```powershell
+.\cli\powertune.ps1 battery -Apply
+```
+
+Restore (Administrator):
+```powershell
+.\cli\powertune.ps1 restore -Apply
+```
+
+## Edge Cases Worth Automating Next
+- malformed YAML and unknown tweak IDs
+- blocked critical services and injection-like service names
+- plugin import failures (must not crash the pipeline)
+- snapshot selection and restore when no snapshots exist
+

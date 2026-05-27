@@ -1,33 +1,37 @@
-﻿# FUTURE_SCOPE
+# FUTURE_SCOPE
+
+This document is an engineering roadmap. It prioritizes safety, measurability, and maintainability over “more tweaks”.
 
 ## Short-Term (0-3 months)
-- Align failing security tests with current exception contract (`SecurityViolationError`).
-- Add schema validation for profile YAML.
-- Add dashboard assets/screenshots and report export presets.
-- Add deterministic benchmark harness for before/after profile comparison.
+- Align failing security tests with the engine contract (`SecurityViolationError` vs `SystemExit`) and codify the error semantics.
+- Add YAML schema validation and required fields enforcement (`profile`, `tweaks[*].id`, `risk`, `why`).
+- Fix `cli/powertune.ps1` command surface mismatch (`dashboard` is implemented but not in ValidateSet).
+- Add snapshot retention policy and snapshot listing UX (`rollback/snapshots` can grow unbounded).
+- Add `desktop/README.md` and a minimal telemetry mock adapter for UI iteration.
 
 ## Mid-Term (3-9 months)
-- Signed profile manifests with strict hash enforcement.
-- Policy engine for allow/deny tweak classes by environment (personal/workstation/lab).
-- Fleet mode for applying profile policy across multiple Windows endpoints.
-- Richer anomaly correlation across CPU, timer, and wake-source events.
+- Signed profile manifests and strict hash enforcement (opt-in “strict mode” first, then default).
+- Policy engine: allow/deny tweak classes by environment (personal workstation, corporate endpoint, lab).
+- Expand analyzer contracts to enforce a stable event schema and versioning for plugin compatibility.
+- Benchmark harness: baseline capture + apply + re-measure with artifact output for CI and PR review.
 
 ## Long-Term (9-18 months)
-- Multi-platform abstraction layer for Linux parity (already hinted in docs).
-- Optional remote telemetry sink (OTLP/Timeseries DB).
-- Recommendation ranking with confidence scores and automated experiment loops.
+- Fleet operations model: profile distribution, audit logs, and rollbacks across multiple devices.
+- Optional remote telemetry sink (OTLP or custom adapters) while keeping local-first mode.
+- Correlation engine improvements: link timer abuse, wake sources, GPU residency, and drain deltas into a causal graph.
 
 ## Scalability Evolution
-- Move from local SQLite to pluggable persistence adapters.
-- Add analyzer job queue and controlled concurrency for large plugin sets.
-- Add release-channel config (stable/canary) for profiles and analyzers.
+- Pluggable persistence: SQLite (local) -> adapter interface -> external TSDB (optional).
+- Analyzer scheduling: concurrency budgets, timeouts, and cost heuristics for plugin sets.
+- Release channels: stable/canary profile streams with “known-good” compatibility tags.
 
 ## AI / Automation Opportunities
-- Automated root-cause graph generation from telemetry events.
-- Drift detection between expected and observed power-state outcomes.
-- CI bot comments that validate optimization claims against benchmark artifacts.
+- Automated root-cause narratives driven by event clusters (grounded in measured telemetry).
+- Drift detection: “expected profile outcome” vs “observed outcome” with confidence and reasons.
+- CI bots: validate optimization claims against benchmark artifacts, not prose.
 
 ## DevOps Evolution
-- Signed releases and supply-chain attestation.
-- Automated versioning + release notes generation.
-- Matrix testing across more Windows editions and hardware classes.
+- Signed releases, SBOM generation, and supply-chain attestations.
+- Automated changelog + semantic versioning enforcement on tags.
+- Expanded CI matrix: Windows editions, PowerShell versions, and minimal-permissions runs.
+
