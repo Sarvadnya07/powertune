@@ -91,7 +91,7 @@ This allows vendor-specific data sources to be incorporated without modifying th
 PowerTune includes a desktop visualization layer based on React + Tailwind + Tauri, alongside CLI tooling.
 Available operator surfaces include:
 ```powershell
-.\cli\launcher.bat
+
 .\cli\powertune.ps1 help
 .\cli\powertune.ps1 dashboard
 ```
@@ -230,7 +230,7 @@ python powertune.py analyze --deep
 Preview a Battery Optimization
 By default, optimization remains in dry-run mode:
 ```powershell
-.\cli\powertune.ps1 battery
+
 ```
 or:
 ```powershell

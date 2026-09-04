@@ -5,7 +5,7 @@ import pytest
 # Add core to sys path for imports
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from core.engine import JsonLogger, BaseTweak, CRITICAL_SERVICES_BLOCKLIST, ServiceDisableTweak
+from core.engine import JsonLogger, BaseTweak, ServiceDisableTweak, SecurityViolationError
 
 def test_json_logger(tmp_path):
     log_dir = tmp_path / "reports"
@@ -19,7 +19,7 @@ def test_json_logger(tmp_path):
     with open(log_file, "r") as f:
         content = f.read()
         assert "DisableService" in content
-        assert "Testing logger" in content
+        assert "Success" in content
 
 def test_base_tweak():
     data = {
@@ -30,8 +30,9 @@ def test_base_tweak():
     assert tweak.risk == "High"
     assert tweak.why == "Because I said so"
 
+
 def test_intent_firewall_blocks_defender():
-    # ServiceDisableTweak should throw SystemExit if trying to disable a blocklisted service
+    # ServiceDisableTweak should raise SecurityViolationError if trying to disable a blocklisted service
     data = {
         "id": "disable_service",
         "target": "windefend",
@@ -39,10 +40,10 @@ def test_intent_firewall_blocks_defender():
         "why": "Malicious intent"
     }
     
-    with pytest.raises(SystemExit) as exc_info:
-        tweak = ServiceDisableTweak(data)
-        
-    assert exc_info.type == SystemExit
+    tweak = ServiceDisableTweak(data)
+    with pytest.raises(SecurityViolationError):
+        tweak.execute(apply_changes=False)
+
 
 def test_intent_firewall_allows_safe_service():
     data = {

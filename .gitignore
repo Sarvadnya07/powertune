@@ -30,9 +30,21 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pytest_cache/
 
 # JavaScript / Desktop UI
 node_modules/
+desktop/src-tauri/target/
+target/
+
+# Rollback Snapshots (preserve folder via .gitkeep)
+rollback/snapshots/*.json
+!rollback/snapshots/.gitkeep
+
+# Host scratch / diagnostic dumps
+clean_tree.txt
+folders_tree.txt
+*.dump
 
 # Virtual Environment
 venv/
@@ -47,3 +59,5 @@ ENV/
 # OS
 Thumbs.db
 desktop.ini
+.DS_Store
+

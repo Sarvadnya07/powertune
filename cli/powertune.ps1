@@ -29,7 +29,7 @@
 
 param(
     [Parameter(Position=0)]
-    [ValidateSet("analyze", "benchmark", "battery", "gaming", "dev", "silent", "vendor", "restore", "help", "")]
+    [ValidateSet("analyze", "benchmark", "dashboard", "battery", "gaming", "dev", "silent", "vendor", "restore", "help", "")]
     [string]$Command = "help",
 
     [switch]$Apply,

@@ -1,0 +1,10 @@
+﻿# Global fallback owner
+* @Sarvadnya07
+
+# Critical execution and rollback engine
+/core/engine.py @Sarvadnya07
+/rollback/ @Sarvadnya07
+
+# CI / GitHub workflows and governance
+/.github/ @Sarvadnya07
+/SECURITY.md @Sarvadnya07
