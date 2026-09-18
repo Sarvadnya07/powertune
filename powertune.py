@@ -1,10 +1,10 @@
 import argparse
-import sys
 import os
+import sys
 
-from core.telemetry import collect_telemetry, generate_recommendations
 from core.engine import execute_profile
-from core.ui import console, display_analyzer_results, show_recommendation_panel
+from core.telemetry import collect_telemetry, generate_recommendations
+from core.ui import console
 
 def main():
     parser = argparse.ArgumentParser(description="PowerTune - Systems Observability & Power Intelligence")
@@ -55,9 +55,12 @@ def main():
             # Color severity
             sev = e[2].lower()
             color = "white"
-            if sev == "high": color = "red"
-            elif sev == "medium": color = "yellow"
-            elif sev == "info": color = "green"
+            if sev == "high":
+                color = "red"
+            elif sev == "medium":
+                color = "yellow"
+            elif sev == "info":
+                color = "green"
             
             table.add_row(e[0], e[1], f"[{color}]{e[2].upper()}[/{color}]", e[3], e[4])
         
