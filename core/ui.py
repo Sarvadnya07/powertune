@@ -1,11 +1,12 @@
-from rich.console import Console
-from rich.table import Table
-from rich.panel import Panel
-from rich.live import Live
-from rich.progress import Progress, SpinnerColumn, TextColumn
-from rich.layout import Layout
-from rich import box
 import json
+
+from rich import box
+from rich.console import Console
+from rich.layout import Layout
+from rich.live import Live
+from rich.panel import Panel
+from rich.progress import Progress, SpinnerColumn, TextColumn
+from rich.table import Table
 
 console = Console()
 
@@ -37,10 +38,14 @@ def display_analyzer_results(title, results):
     for item in results:
         severity = item.get('severity', 'info').lower()
         color = "white"
-        if severity == "critical": color = "bold red"
-        elif severity == "high": color = "red"
-        elif severity == "medium": color = "yellow"
-        elif severity == "info": color = "green"
+        if severity == "critical":
+            color = "bold red"
+        elif severity == "high":
+            color = "red"
+        elif severity == "medium":
+            color = "yellow"
+        elif severity == "info":
+            color = "green"
         
         root_cause = engine.analyze(item)
         
