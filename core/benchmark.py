@@ -1,8 +1,8 @@
-import subprocess
 import json
-import time
-import sys
 import os
+import subprocess
+import sys
+import time
 
 class BenchmarkResult:
     def __init__(self):
@@ -16,7 +16,7 @@ def get_process_count():
     try:
         out = subprocess.check_output(["powershell", "-Command", "(Get-Process).Count"], text=True, timeout=5.0).strip()
         return int(out)
-    except:
+    except (OSError, subprocess.SubprocessError, ValueError):
         return 0
 
 def get_cpu_stats():
@@ -30,7 +30,7 @@ def get_cpu_stats():
         out = subprocess.check_output(["powershell", "-Command", ps_script], text=True, timeout=10.0).strip()
         usage, freq = out.split('|')
         return float(usage), int(freq)
-    except:
+    except (OSError, subprocess.SubprocessError, ValueError):
         return 0.0, 0
 
 def get_battery_discharge_rate():
@@ -44,7 +44,7 @@ def get_battery_discharge_rate():
         if out:
             data = json.loads(out)
             return data.get("DischargeRate", 0)
-    except:
+    except (OSError, subprocess.SubprocessError, ValueError, AttributeError):
         pass
     return 0
 
