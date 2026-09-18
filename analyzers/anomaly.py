@@ -1,7 +1,6 @@
-import subprocess
-import json
 import argparse
-import time
+import json
+import subprocess
 
 def get_telemetry():
     telemetry = []
@@ -16,7 +15,8 @@ def get_telemetry():
         if output:
             try:
                 events = json.loads(output)
-                if isinstance(events, dict): events = [events]
+                if isinstance(events, dict):
+                    events = [events]
                 for event in events:
                     name = event.get("ProcessName", "Unknown")
                     cpu_time = event.get("CPU", 0)
