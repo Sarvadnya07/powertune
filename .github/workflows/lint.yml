@@ -10,10 +10,10 @@ jobs:
   lint:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
         
@@ -27,8 +27,8 @@ jobs:
         ruff check .
         
     - name: Run PSScriptAnalyzer
-      shell: pwsh
-      run: |
-        Invoke-ScriptAnalyzer -Path . -Recurse | Where-Object { $_.Severity -eq 'Error' } | ForEach-Object {
-          Write-Error "PSScriptAnalyzer Error: $($_.Message) in $($_.ScriptName):$($_.Line)"
-        }
+      uses: microsoft/psscriptanalyzer-action@v1.1
+      with:
+        path: .\\
+        recurse: true
+        failOnSeverity: Error
