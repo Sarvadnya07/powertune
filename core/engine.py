@@ -157,7 +157,6 @@ class EngineInitializationError(PowerTuneError):
     """Raised when a core dependency (like PyYAML) is missing."""
     pass
 
-import hashlib
 
 OFFICIAL_PROFILES_HASHES = {
     # We will just warn if the hash isn't known, simulating a signature check.
