@@ -1,9 +1,9 @@
-import os
-import sys
-import subprocess
-import re
-import json
 import datetime
+import json
+import os
+import re
+import subprocess
+import sys
 try:
     import yaml
 except ImportError:
@@ -116,11 +116,13 @@ class ServiceDisableTweak(BaseTweak):
 
     def execute(self, apply_changes):
         if not re.match(r'^[a-zA-Z0-9.\-_]+$', self.target):
-            if self.logger: self.logger.log(f"Disable service {self.target}", "Blocked: Injection attempt", "Critical", "")
+            if self.logger:
+                self.logger.log(f"Disable service {self.target}", "Blocked: Injection attempt", "Critical", "")
             raise SecurityViolationError(f"Invalid service name format '{self.target}'. Command injection blocked.")
             
         if self.target.lower() in CRITICAL_SERVICES_BLOCKLIST:
-            if self.logger: self.logger.log(f"Disable service {self.target}", "Blocked: Critical service", "Critical", "")
+            if self.logger:
+                self.logger.log(f"Disable service {self.target}", "Blocked: Critical service", "Critical", "")
             raise SecurityViolationError(f"Blocked attempt to disable critical service '{self.target}'. See docs/SAFETY_POLICY.md for rules.")
             
         if apply_changes:
@@ -199,7 +201,8 @@ def execute_profile(yaml_path, apply_changes=False, root_dir="."):
     if apply_changes:
         print("     [*] [1/4] SNAPSHOT: Capturing pre-optimization state...")
         subprocess.run(["powershell", "-ExecutionPolicy", "Bypass", "-File", os.path.join(root_dir, "rollback", "snapshot.ps1"), "-Profile", profile.get("profile", "unknown")], timeout=15.0)
-        if logger: logger.log("Transactional Snapshot", "Success", "None", "Atomic state capture before execution")
+        if logger:
+            logger.log("Transactional Snapshot", "Success", "None", "Atomic state capture before execution")
 
     # 3. APPLY: Execute tweaks with Intent Firewall protection
     try:
@@ -216,7 +219,8 @@ def execute_profile(yaml_path, apply_changes=False, root_dir="."):
         print(f"     [!] [TRANSACTION FAILED] Error during execution: {e}")
         if apply_changes:
             print("     [*] ATOMIC ROLLBACK INITIATED: Reverting system to snapshot...")
-            if logger: logger.log("Atomic Rollback Triggered", "Failed Execution", "High", str(e))
+            if logger:
+                logger.log("Atomic Rollback Triggered", "Failed Execution", "High", str(e))
             subprocess.run(["powershell", "-ExecutionPolicy", "Bypass", "-File", os.path.join(root_dir, "rollback", "restore.ps1"), "-Apply"], timeout=15.0)
             sys.exit(1)
         raise e
