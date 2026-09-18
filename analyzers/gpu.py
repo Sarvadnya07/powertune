@@ -17,7 +17,7 @@ def check_gpu():
                     print("         WHY: dGPU wakeups drain battery rapidly. Check for background apps using hardware acceleration.")
                 else:
                     print("     [+] NVIDIA dGPU is asleep (0% utilization).")
-            except:
+            except (OSError, subprocess.SubprocessError, ValueError):
                 print("     [i] nvidia-smi not found or failed.")
     except Exception as e:
         print(f"     [!] Could not check GPUs: {e}")
