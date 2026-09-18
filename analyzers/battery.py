@@ -1,8 +1,7 @@
-import os
-import sys
 import json
+import os
 import subprocess
-from datetime import datetime
+import sys
 try:
     from bs4 import BeautifulSoup
 except ImportError:
@@ -37,10 +36,12 @@ def parse_report(file_path):
             for row in rows:
                 if "DESIGN CAPACITY" in row.text.upper():
                     cols = row.find_all('td')
-                    if len(cols) > 1: design_cap = cols[1].text.strip()
+                    if len(cols) > 1:
+                        design_cap = cols[1].text.strip()
                 if "FULL CHARGE CAPACITY" in row.text.upper():
                     cols = row.find_all('td')
-                    if len(cols) > 1: full_cap = cols[1].text.strip()
+                    if len(cols) > 1:
+                        full_cap = cols[1].text.strip()
             break
             
     if design_cap != "Unknown" and full_cap != "Unknown":
@@ -54,7 +55,7 @@ def parse_report(file_path):
                 "why": f"Design: {d} mWh, Current Max: {f} mWh.",
                 "recommendation": "Battery health is acceptable." if wear <= 20 else "Consider replacing battery or capping charge limit."
             }
-        except:
+        except (TypeError, ValueError, ZeroDivisionError):
             pass
 
     return {"status": "ok", "message": "Battery Report Parsed", "why": "Unable to extract exact wear numbers.", "recommendation": "Check report manually."}
