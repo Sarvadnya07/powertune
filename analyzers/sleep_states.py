@@ -1,6 +1,6 @@
-import subprocess
-import json
 import argparse
+import json
+import subprocess
 
 def get_telemetry():
     telemetry = []
@@ -15,7 +15,8 @@ def get_telemetry():
         
         if output:
             events = json.loads(output)
-            if isinstance(events, dict): events = [events]
+            if isinstance(events, dict):
+                events = [events]
             for event in events:
                 msg = event.get("Message", "")
                 source = "Unknown"
