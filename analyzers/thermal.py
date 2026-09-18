@@ -1,6 +1,6 @@
-import subprocess
-import json
 import argparse
+import json
+import subprocess
 
 def get_telemetry():
     telemetry = []
@@ -16,7 +16,8 @@ def get_telemetry():
         if output:
             try:
                 zones = json.loads(output)
-                if isinstance(zones, dict): zones = [zones]
+                if isinstance(zones, dict):
+                    zones = [zones]
                 
                 max_temp_c = 0
                 for zone in zones:
